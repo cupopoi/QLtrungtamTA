@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<TrungTamTA.Models.ChuongTrinhHoc>
+
+@{
+    ViewBag.Title = "Chuongtrinhhoc";
+    Layout = "~/Views/Shared/_layoutAD.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Danh sách chương trình học</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("HomeQL", "Home", null, Request.Url.Scheme)">Home</a></li>
+                    <li class="breadcrumb-item active">Danh sách chương trình học</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+@if (TempData["SuccessMessage"] != null)
+{
+    ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+    TempData.Remove("SuccessMessage");
+}
+<p style="text-align:center;">
+    @Html.ActionLink("Thêm chương trình", "Themchuongtrinh", "QLchuongtrinhhoc")
+</p>
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+    TempData.Remove("SuccessMessage");
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDChuongTrinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenChuongTrinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoBuoiHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GiaTien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(model => item.IDChuongTrinh)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenChuongTrinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoBuoiHoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThoiLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaTien)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = item.IDChuongTrinh }) |
+                @Html.ActionLink("Details", "Xemchitiet", new { IDct = item.IDChuongTrinh }) |
+                @Html.ActionLink("Delete", "Xoachuongtrinh", new { IDct = item.IDChuongTrinh })|
+                @{
+                    bool isValid = true;
+                    if (item.IDChuongTrinh == 0 || ViewBag.idaction == 0)
+                    {
+                        isValid = false;
+                    }
+                }
+
+                @if (isValid && ViewBag.idaction == 1)
+                {
+                    @Html.ActionLink("AddToClass", "Themlophocdacoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv }, null)
+                }
+                else
+                {
+                    <div></div>
+                }
+                @if (isValid && ViewBag.idaction == 2)
+                {
+                    @Html.ActionLink("AddToClass", "Sualophoccoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv, IDlh = ViewBag.idlh }, null)
+                }
+                else
+                {
+                    <div></div>
+                }
+
+                @*@Html.ActionLink("AddToClass", "Themlophocdacoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = @ViewBag.idgv }, null)*@
+            </td>
+        </tr>
+    }
+</table>
+
+
+<script>
+    $(document).ready(function () {
+        $(".confirm-action").click(function (event) {
+            var confirmMsg = $(this).attr("data-confirm");
+            if (confirmMsg && !confirm(confirmMsg)) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>

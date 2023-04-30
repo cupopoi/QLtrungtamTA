@@ -1,0 +1,62 @@
+﻿
+@model TrungTamTA.Models.ChuongTrinhHoc
+
+@{
+    ViewBag.Title = "Chi tiết chương trình học";
+    Layout = "~/Views/Shared/_layoutAD.cshtml";
+}
+
+<h2>Xemchitiet</h2>
+
+@{
+    ViewBag.Title = "Chi tiết học viên";
+    Layout = "~/Views/Shared/_layoutAD.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Chi tiết chương trình học</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("HomeQL", "Home", null, Request.Url.Scheme)">Home</a></li>
+                    <li class="breadcrumb-item active">Chi tiết giảng viên</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<table class="table">
+    <tr>
+        <td>Mã chương trình học :</td>
+        <td>@Html.DisplayFor(model => model.IDChuongTrinh)</td>
+    </tr>
+    <tr>
+        <td>Tên chương trình học:</td>
+        <td>@Html.DisplayFor(model => model.TenChuongTrinh)</td>
+    </tr>
+    <tr>
+        <td>Số buổi trong tuần:</td>
+        <td>@Html.DisplayFor(model => model.SoBuoiHoc)</td>
+    </tr>
+    <tr>
+        <td>Thời lượng của chương trình:</td>
+        <td>@Html.DisplayFor(model => model.ThoiLuong)</td>
+    </tr>
+    <tr>
+        <td>Giá chương trình học:</td>
+        <td>@Html.DisplayFor(model => model.GiaTien) VND</td>
+    </tr>
+    <tr>
+        <td>Mô tả chi tiết:</td>
+        <td>@Html.DisplayFor(model => model.MoTa)</td>
+    </tr>
+
+</table>
+<p>
+    @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = Model.IDChuongTrinh }) |
+    @Html.ActionLink("Delete", "Xoachuongtrinh", new { IDct = Model.IDChuongTrinh })|
+    @Html.ActionLink("Back", "Chuongtrinhhoc")
+</p>
