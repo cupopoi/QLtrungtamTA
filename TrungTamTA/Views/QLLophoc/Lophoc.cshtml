@@ -76,7 +76,8 @@
 
             <td>
                 @Html.ActionLink("Edit", "Sualophoc", new { IDlh = item.IDLophoc }) |
-                @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc })
+                @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc })|
+                @Html.ActionLink("AddStudent", "themhvvaolop", new { IDlh = item.IDLophoc })
             </td>
         </tr>
     }

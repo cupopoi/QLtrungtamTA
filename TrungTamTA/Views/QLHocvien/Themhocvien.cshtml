@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-sm-12">
-                <input type="text" id="txtNgaySinh" name="Ngaysinh" placeholder="Nhập ngày sinh (dd-MM-yyyy)" />
+                <input type="text" id="txtNgaySinh" name="Ngaysinh" placeholder="dd/mm/yyyy" />
                 @*@Html.TextBoxFor(model => model.NgaySinh, "{0:dd/MM/yyyy}", new { @class = "datepicker" })*@
                 <div style="color:red;">@ViewData["Loi3"]</div>
             </div>

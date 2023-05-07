@@ -22,14 +22,22 @@ namespace TrungTamTA.Controllers
             return View(lophoc);
         }
         #endregion
-        #region Thêm xóa sửa
-        private bool checkid(int id)
-        {
+        #region funtion
+         private bool checkid(int id)
+          {
             return data.LopHocs.Count(x => x.IDLophoc == id) > 0;
+           }
+        private List<HocVien> getNullStudent()
+        {
+            List<HocVien> listHocVien = data.HocViens.Where(x => x.IDLopHoc == null).ToList();
+            return listHocVien;
         }
+        #endregion
+        #region Thêm xóa sửa
 
-       
-       //hiện form thêm lớp học
+
+
+        //hiện form thêm lớp học
         public ActionResult Themlophoc()
         {
             return View();
@@ -191,6 +199,20 @@ namespace TrungTamTA.Controllers
             {
                 return View(editlophoc);
             }
+        }
+        public ActionResult themhvvaolop(int IDlh)
+        {
+            ViewBag.Idlh = IDlh;
+            var namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc;
+            ViewBag.namelh = namelh;
+            return View(getNullStudent());
+        }
+        public ActionResult addtoclass(int? IDlh, int? IDhv)
+        {
+           
+            HocVien hocvien = data.HocViens.SingleOrDefault(x => x.IDHocvien == IDhv);
+            hocvien.IDLopHoc = IDlh;
+            return RedirectToAction("themhvvaolop", new { IDlh = ViewBag.Idlh });
         }
         #endregion
     }

@@ -2348,6 +2348,7 @@
     <Content Include="Views\QLLophoc\Sualophoc.cshtml" />
     <Content Include="Views\QLLophoc\Sualophoccogv.cshtml" />
     <Content Include="Views\QLLophoc\Sualophoccoct.cshtml" />
+    <Content Include="Views\QLLophoc\themhvvaolop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

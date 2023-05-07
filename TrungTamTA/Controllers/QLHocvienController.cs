@@ -22,10 +22,10 @@ namespace QLtrungtam.Controllers
 
         public ActionResult Hocvien()
         {
-
             var hocvien = from hv in data.HocViens select hv;
             return View(hocvien);
         }
+
         #endregion
         #region Thêm xóa sửa
         private bool checkid(int id)
@@ -69,8 +69,8 @@ namespace QLtrungtam.Controllers
                 hocvien.TenHocVien = tenhocvien;
                 // Chuyển đổi chuỗi thành kiểu DateTime với định dạng "dd/MM/yyyy"
                 // hocvien.NgaySinh = Convert.ToDateTime(ngaysinh);
-                //hocvien.NgaySinh = DateTime.ParseExact(Request.Form["NgaySinh"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                hocvien.NgaySinh = DateTime.ParseExact(ngaysinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                hocvien.NgaySinh = DateTime.ParseExact(Request.Form["NgaySinh"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
+               // hocvien.NgaySinh = DateTime.ParseExact(ngaysinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 hocvien.DiaChi = diachi;
                 hocvien.SoDienThoai = sodt;
                 hocvien.Email = email;

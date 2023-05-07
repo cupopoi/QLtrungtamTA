@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TrungTamTA.Models.HocVien>
 
 @{
-    ViewBag.Title = "Hocvien";
+    ViewBag.Title = "themhvvaolop";
     Layout = "~/Views/Shared/_layoutAD.cshtml";
 }
 <!-- Content Header (Page header) -->
@@ -9,7 +9,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách học viên</h1>
+                <h1>Danh sách học viên chưa có lớp</h1>
+                 <h5>Lớp: @ViewBag.Idlh</h5>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -79,8 +80,8 @@
             <td>
                 @{
                     string formatdate = item.NgaySinh.Value.ToString("dd/MM/yyyy");
-                 }
-                    @Html.DisplayFor(modelItem => formatdate)
+                }
+                @Html.DisplayFor(modelItem => formatdate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiaChi)
@@ -99,9 +100,7 @@
                 @Html.DisplayFor(modelItem => item.TrangThaiHV.TenTrangThai)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Suahocvien", new { IDhv = item.IDHocvien }) |
-                @Html.ActionLink("Details", "Xemchitiet", new { IDhv = item.IDHocvien }) |
-                @Html.ActionLink("Delete", "Xoahocvien", new { IDhv = item.IDHocvien })
+                @Html.ActionLink("AddToClass", "addtoclass", new {  IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
             </td>
         </tr>
     }
