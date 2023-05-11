@@ -1,7 +1,7 @@
-﻿@model IEnumerable<TrungTamTA.Models.LopHoc>
+﻿@model IEnumerable<TrungTamTA.Models.ChiTietLichHoc>
 
 @{
-    ViewBag.Title = "Lophoc";
+    ViewBag.Title = "Lichhoc";
     Layout = "~/Views/Shared/_layoutAD.cshtml";
 }
 
@@ -12,12 +12,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách lớp học</h1>
+                <h1>Danh sách lịch học</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="@Url.Action("HomeQL", "Home", null, Request.Url.Scheme)">Home</a></li>
-                    <li class="breadcrumb-item active">Danh sách lớp học</li>
+                    <li class="breadcrumb-item active">Danh sách lịch học</li>
                 </ol>
             </div>
         </div>
@@ -29,7 +29,7 @@
     TempData.Remove("SuccessMessage");
 }
 <p style="text-align:center;">
-    @Html.ActionLink("Thêm lớp học", "Themlophoc", "QLLophoc")
+    @Html.ActionLink("Thêm lịch học", "Themlophoc", "QLlichhoc")
 </p>
 @if (ViewBag.SuccessMessage != null)
 {
@@ -44,36 +44,40 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IDLophoc)
-        </th>
-        <th> 
-            @Html.DisplayNameFor(model => model.TenLopHoc)
+            @Html.DisplayNameFor(model => model.IDLichhoc)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IDGiangVien)
+            @Html.DisplayNameFor(model => model.LichHoc.TGBatDau)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IDChuongTrinh)
+            @Html.DisplayNameFor(model => model.LichHoc.TGKetThuc)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.LichHoc.CacNgayTrongTuan.TenNgay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LopHoc.TenLopHoc)
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <th>
-                @Html.DisplayFor(model => item.IDLophoc)
+                @Html.DisplayFor(model => item.IDLichhoc)
             </th>
             <td>
-                @Html.DisplayFor(modelItem => item.TenLopHoc)
+                @Html.DisplayFor(modelItem => item.LichHoc.TGBatDau)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiangVien.TenGiangVien)
+                @Html.DisplayFor(modelItem => item.LichHoc.TGKetThuc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ChuongTrinhHoc.TenChuongTrinh)
+                @Html.DisplayFor(modelItem => item.LichHoc.CacNgayTrongTuan.TenNgay)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.LopHoc.TenLopHoc)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Sualophoc", new { IDlh = item.IDLophoc }) |
                 @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc })|

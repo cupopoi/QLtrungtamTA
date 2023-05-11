@@ -9,8 +9,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách học viên chưa có lớp</h1>
-                 <h5>Lớp: @ViewBag.namelh</h5>
+                <h1>Danh sách học viên lớp: @ViewBag.namelh</h1>
+                <h4>@ViewBag.count /30</h4>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,9 +26,7 @@
     ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
     TempData.Remove("SuccessMessage");
 }
-<p style="text-align:center;">
-    @Html.ActionLink("Xem danh sách ", "Xemhvtronglop", new { IDlh = @ViewBag.Idlh })
-</p>
+
 @if (ViewBag.SuccessMessage != null)
 {
     <div class="alert alert-success">@ViewBag.SuccessMessage</div>
@@ -44,35 +42,29 @@
 <table class="table">
     <tr>
         <th>
+            STT
+        </th>
+
+        <th>
             @Html.DisplayNameFor(model => model.IDHocvien)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TenHocVien)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoDienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CapDo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDTrangThai)
-        </th>
-        <th></th>
     </tr>
-      
+    @{
+        int i = 0;
+    }
     @foreach (var item in Model)
     {
+        i++;
         <tr>
+            <th>
+                @i
+            </th>
             <th>
                 @Html.DisplayFor(model => item.IDHocvien)
             </th>
@@ -80,33 +72,16 @@
                 @Html.DisplayFor(modelItem => item.TenHocVien)
             </td>
             <td>
-                @{
-                    string formatdate = item.NgaySinh.Value.ToString("dd/MM/yyyy");
-                }
-                @Html.DisplayFor(modelItem => formatdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-
-            <td>
                 @Html.DisplayFor(modelItem => item.CapDo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrangThaiHV.TenTrangThai)
-            </td>
-            <td>
-                @Html.ActionLink("AddToClass", "addtoclass", new {  IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
+                @Html.ActionLink("Delete", "DeleteStudent", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
             </td>
         </tr>
     }
 </table>
-<<div style="text-align:center">
-    @Html.ActionLink("Back", "Lophoc")
+<div style="text-align:center">
+
+    @Html.ActionLink("Back to list student null class", "themhvvaolop", new { IDlh = @ViewBag.Idlh })|
+    @Html.ActionLink("Back to list class", "Lophoc")
 </div>

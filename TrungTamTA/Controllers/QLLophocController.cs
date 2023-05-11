@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data.Linq;
 using Antlr.Runtime.Misc;
-
+using System.Data;
 
 namespace TrungTamTA.Controllers
 {
@@ -30,6 +30,13 @@ namespace TrungTamTA.Controllers
         private List<HocVien> getNullStudent()
         {
             List<HocVien> listHocVien = data.HocViens.Where(x => x.IDLopHoc == null).ToList();
+            return listHocVien;
+        }
+        private List<HocVien> getStudentInClass(int id)
+        {
+            var count = data.HocViens.Count(x => x.IDLopHoc == id);
+            ViewBag.count = count;
+            List<HocVien> listHocVien = data.HocViens.Where(x => x.IDLopHoc == id).ToList();
             return listHocVien;
         }
         #endregion
@@ -150,8 +157,7 @@ namespace TrungTamTA.Controllers
                 return View(lophoc);
             }
         }
-
-
+        //Hiển thị về view danh sách đã có lưu id của giảng viên và cả lớp học và chương trình
          [HttpGet]
         public ActionResult Sualophoccoct(int IDlh, int? IDct, int? Idremen)
         {
@@ -200,6 +206,8 @@ namespace TrungTamTA.Controllers
                 return View(editlophoc);
             }
         }
+
+        //thêm học viên vào lớp học
         public ActionResult themhvvaolop(int IDlh)
         {
             ViewBag.Idlh = IDlh;
@@ -207,12 +215,33 @@ namespace TrungTamTA.Controllers
             ViewBag.namelh = namelh;
             return View(getNullStudent());
         }
+        //nút action AddToClass
         public ActionResult addtoclass(int? IDlh, int? IDhv)
         {
            
             HocVien hocvien = data.HocViens.SingleOrDefault(x => x.IDHocvien == IDhv);
             hocvien.IDLopHoc = IDlh;
-            return RedirectToAction("themhvvaolop", new { IDlh = ViewBag.Idlh });
+            data.SubmitChanges();
+            return RedirectToAction("themhvvaolop", new {  IDlh });
+        }
+        //nút xem danh sách học sinh trong lớp
+        public ActionResult Xemhvtronglop(int IDlh)
+        {
+            ViewBag.Idlh = IDlh;
+           
+            var namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc;
+            ViewBag.namelh = namelh;
+          
+            return View(getStudentInClass(IDlh));
+        }
+        //nút xóa học sinh ra khỏi lớp
+        public ActionResult DeleteStudent(int? IDlh, int? IDhv)
+        {
+
+            HocVien hocvien = data.HocViens.SingleOrDefault(x => x.IDHocvien == IDhv);
+            hocvien.IDLopHoc = null;
+            data.SubmitChanges();
+            return RedirectToAction("Xemhvtronglop", new { IDlh });
         }
         #endregion
     }

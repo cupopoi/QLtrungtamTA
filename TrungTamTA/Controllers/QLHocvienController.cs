@@ -68,9 +68,7 @@ namespace QLtrungtam.Controllers
                 hocvien.IDHocvien = int.Parse(idhocvien);
                 hocvien.TenHocVien = tenhocvien;
                 // Chuyển đổi chuỗi thành kiểu DateTime với định dạng "dd/MM/yyyy"
-                // hocvien.NgaySinh = Convert.ToDateTime(ngaysinh);
                 hocvien.NgaySinh = DateTime.ParseExact(Request.Form["NgaySinh"], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-               // hocvien.NgaySinh = DateTime.ParseExact(ngaysinh, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 hocvien.DiaChi = diachi;
                 hocvien.SoDienThoai = sodt;
                 hocvien.Email = email;
@@ -107,9 +105,14 @@ namespace QLtrungtam.Controllers
             return View(show1hocvien);
 
         }
+
+
+        [HttpGet]
         public ActionResult Suahocvien(int IDhv)
         {
-            ViewBag.IDTrangThai = new SelectList(data.TrangThaiHVs.ToList().OrderBy(n => n.TenTrangThai), "IDTrangThai", "TenTrangThai");
+            var trangThaiList = data.TrangThaiHVs.ToList().OrderBy(n => n.TenTrangThai);
+            ViewBag.IDTrangThai = new SelectList(trangThaiList, "IDTrangThai", "TenTrangThai");
+
             HocVien hocvien = data.HocViens.SingleOrDefault(c => c.IDHocvien == IDhv);
             if (hocvien == null)
             {
@@ -130,13 +133,14 @@ namespace QLtrungtam.Controllers
                 if (hocvien != null)
                 {
                     hocvien.TenHocVien = editHocvien.TenHocVien;
-                    hocvien.NgaySinh = editHocvien.NgaySinh;
+                    hocvien.NgaySinh = DateTime.ParseExact(editHocvien.NgaySinh.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     hocvien.DiaChi = editHocvien.DiaChi;
                     hocvien.SoDienThoai = editHocvien.SoDienThoai;
                     hocvien.Email = editHocvien.Email;
                     hocvien.Hinh = editHocvien.Hinh;
                     hocvien.CapDo = editHocvien.CapDo;
                     hocvien.IDTrangThai = editHocvien.IDTrangThai;
+
                     data.SubmitChanges();
                     return RedirectToAction("Hocvien");
                 }
@@ -147,9 +151,13 @@ namespace QLtrungtam.Controllers
             }
             else
             {
+                var trangThaiList = data.TrangThaiHVs.ToList().OrderBy(n => n.TenTrangThai);
+                ViewBag.IDTrangThai = new SelectList(trangThaiList, "IDTrangThai", "TenTrangThai", editHocvien.IDTrangThai);
                 return View(editHocvien);
             }
         }
+
+
         #endregion
     }
 }
