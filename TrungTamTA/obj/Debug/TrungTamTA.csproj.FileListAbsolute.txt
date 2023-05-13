@@ -1,3 +1,5 @@
+D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.csproj.AssemblyReference.cache
+D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.csproj.CoreCompileInputs.cache
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\TrungTamTA.dll.config
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\TrungTamTA.dll
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\TrungTamTA.pdb
@@ -101,8 +103,6 @@ D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\Microsoft.Owin.Security.T
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\Microsoft.Owin.Security.OAuth.xml
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.csproj.AssemblyReference.cache
-D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.csproj.CoreCompileInputs.cache
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.csproj.CopyComplete
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.dll
 D:\HUTECH\Đồ án cơ sở\TrungTamTA\TrungTamTA\obj\Debug\TrungTamTA.pdb

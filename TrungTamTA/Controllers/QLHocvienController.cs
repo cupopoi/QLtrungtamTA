@@ -51,8 +51,6 @@ namespace QLtrungtam.Controllers
         [HttpPost]
         public ActionResult Themhocvien(FormCollection collection, HocVien hocvien, int IDtrangthai)
         {
-
-
             var idhocvien = collection["IDHocvien"];
             var tenhocvien = collection["Tenhocvien"];
             string ngaysinh = collection["Ngaysinh"];
@@ -133,7 +131,7 @@ namespace QLtrungtam.Controllers
                 if (hocvien != null)
                 {
                     hocvien.TenHocVien = editHocvien.TenHocVien;
-                    hocvien.NgaySinh = DateTime.ParseExact(editHocvien.NgaySinh.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    hocvien.NgaySinh = editHocvien.NgaySinh;
                     hocvien.DiaChi = editHocvien.DiaChi;
                     hocvien.SoDienThoai = editHocvien.SoDienThoai;
                     hocvien.Email = editHocvien.Email;

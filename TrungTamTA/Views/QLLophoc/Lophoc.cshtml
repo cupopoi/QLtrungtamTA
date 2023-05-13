@@ -23,22 +23,22 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-@if (TempData["SuccessMessage"] != null)
+@if(TempData["AlertMessage"] != null)
 {
-    ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
-    TempData.Remove("SuccessMessage");
-}
+        ViewBag.AlertMessage = TempData["AlertMessage"].ToString();
+        TempData.Remove("AlertMessage");
+    }
 <p style="text-align:center;">
     @Html.ActionLink("Thêm lớp học", "Themlophoc", "QLLophoc")
 </p>
-@if (ViewBag.SuccessMessage != null)
+@if (ViewBag.AlertMessage != null)
 {
-    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+    <div class="alert alert-danger">@ViewBag.AlertMessage</div>
 }
-@if (TempData["SuccessMessage"] != null)
+@if (TempData["AlertMessage"] != null)
 {
-    ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
-    TempData.Remove("SuccessMessage");
+    ViewBag.AlertMessage = TempData["AlertMessage"].ToString();
+    TempData.Remove("AlertMessage");
 }
 
 <table class="table">
@@ -46,7 +46,7 @@
         <th>
             @Html.DisplayNameFor(model => model.IDLophoc)
         </th>
-        <th> 
+        <th>
             @Html.DisplayNameFor(model => model.TenLopHoc)
         </th>
         <th>

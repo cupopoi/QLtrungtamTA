@@ -1,0 +1,89 @@
+﻿@model TrungTamTA.Models.ChiTietLopHoc
+
+@{
+    ViewBag.Title = "addScore";
+    Layout = "~/Views/Shared/_layoutAD.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm điểm cho học viên</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="@Url.Action("HomeQL", "Home", null, Request.Url.Scheme)">Home</a></li>
+                    <li class="breadcrumb-item active">Thêm điểm cho học viên</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <b>Tên học viên:</b> @ViewBag.namehv
+    </div>
+
+    <div class="form-group">
+        <b>Tên lớp học:</b>  @ViewBag.namelh
+    </div>
+
+    <div class="form-group">
+        <b>Điểm nghe:</b>
+        <div class="col-sm-12">
+            <input type="number" class="form-control form-control-user" placeholder="Nhập điểm nghe" name="Diemnghe">
+            <div style="color:red;">@ViewData["Loi1"]</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+       <b>Điểm nói:</b>
+        <div class="col-sm-12">
+            <input type="number" class="form-control form-control-user" placeholder="Nhập điểm nói" name="Diemnoi">
+            <div style="color:red;">@ViewData["Loi1"]</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <b>Điểm đọc:</b>
+        <div class="col-sm-12">
+            <input type="number" class="form-control form-control-user" placeholder="Điểm đọc" name="Diemdoc">
+            <div style="color:red;">@ViewData["Loi1"]</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+       <b>Điểm viết:</b>
+        <div class="col-sm-12">
+            <input type="number" class="form-control form-control-user" placeholder="Nhập điểm viết" name="Diemviet">
+            <div style="color:red;">@ViewData["Loi1"]</div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Xemhvtronglop", new { IDlh = @ViewBag.Idlh})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

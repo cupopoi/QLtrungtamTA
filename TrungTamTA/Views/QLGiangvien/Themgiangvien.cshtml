@@ -30,24 +30,24 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.IDGiangvien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b>Mã giảng viên:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user"
-                       placeholder="Nhập ID" name="IDGiangvien">
+                       placeholder="Nhập ID (Ex: Số)" name="IDGiangvien">
                 <div style="color:red;">@ViewData["Loi1"]</div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.TenGiangVien, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Tên giảng viên:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user"
-                       placeholder="Nhập Tên" name="Tengiangvien">
+                       placeholder="Nhập Tên (Ex: Nguyen Van A)" name="Tengiangvien">
                 <div style="color:red;">@ViewData["Loi2"]</div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Địa chỉ:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Địa Chỉ" name="DiaChi">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Số điện thoại:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Số điện thoại" name="Phone">
@@ -65,15 +65,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Email:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
-                       placeholder="Nhập Email" name="Email">
+                       placeholder="Nhập Email (Ex: abc@gmail.com)" name="Email">
                 <div style="color:red;">@ViewData["Loi6"]</div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Hinh, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Hình giảng viên:</b>
             <h5 style="color:darkgray; font-size:15px;">*Không chỉnh sửa</h5>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hinh, new { htmlAttributes = new { @class = "form-control" } })
@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.BangCap, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Hình bằng cấp:</b>
             <h5 style="color:darkgray; font-size:15px;">*Không chỉnh sửa</h5>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.BangCap, new { htmlAttributes = new { @class = "form-control" } })
@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Luong, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Mức lương:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Lương" name="Luong">

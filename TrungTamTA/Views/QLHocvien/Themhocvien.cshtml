@@ -30,24 +30,24 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.IDHocvien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b>Mã học viên:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user"
-                       placeholder="Nhập ID" name="IDHocvien">
+                       placeholder="Nhập ID (Ex: Số)" name="IDHocvien">
                 <div style="color:red;">@ViewData["Loi1"]</div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.TenHocVien, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Tên học viên:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user"
-                       placeholder="Nhập Tên" name="Tenhocvien">
+                       placeholder="Nhập Tên (Ex: Nguyen Van A)" name="Tenhocvien">
                 <div style="color:red;">@ViewData["Loi2"]</div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b>Ngày sinh:</b>
             <div class="col-sm-12">
                 <input type="text" id="txtNgaySinh" name="Ngaysinh" placeholder="dd/mm/yyyy" />
                 @*@Html.TextBoxFor(model => model.NgaySinh, "{0:dd/MM/yyyy}", new { @class = "datepicker" })*@
@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b>Địa chỉ:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Địa Chỉ" name="DiaChi">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b>Số điện thoại:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Số điện thoại" name="Phone">
@@ -74,15 +74,15 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Email:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
-                       placeholder="Nhập Email" name="Email">
+                       placeholder="Nhập Email (Ex: abc@gmail.com)" name="Email">
                 <div style="color:red;">@ViewData["Loi6"]</div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Hinh, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Hình ảnh</b>
             <h5 style="color:darkgray; font-size:15px;">*Không chỉnh sửa</h5>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hinh, new { htmlAttributes = new { @class = "form-control" } })
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CapDo, htmlAttributes: new { @class = "control-label col-md-2" })
+           <b>Cấp độ:</b>
             <div class="col-sm-12">
                 <input type="text" class="form-control form-control-user" id="exampleUsername"
                        placeholder="Nhập Cấp độ" name="Capdo">
@@ -102,6 +102,7 @@
             </div>
         </div>
         <div class="form-group">
+            <b>Trạng thái học:</b>
             <div class="form-group">
                 <div class="col-md-10">
                     @Html.DropDownList("IDTrangThai")

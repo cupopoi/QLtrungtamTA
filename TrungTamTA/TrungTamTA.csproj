@@ -2142,11 +2142,6 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Models\dbQLtrungtam.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>dbQLtrungtam.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Assets\dist\css\adminlte.css.map" />
     <Content Include="Assets\dist\css\adminlte.min.css.map" />
     <Content Include="Assets\dist\css\alt\adminlte.components.css.map" />
@@ -2280,6 +2275,11 @@
     <Content Include="Assets\plugins\summernote\summernote.js.map" />
     <Content Include="Assets\plugins\summernote\summernote.min.js.map" />
     <Content Include="Assets\plugins\toastr\toastr.js.map" />
+    <Content Include="Models\dbQLtrungtam.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>dbQLtrungtam.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Models\dbQLtrungtam.dbml.layout">
       <DependentUpon>dbQLtrungtam.dbml</DependentUpon>
     </None>
@@ -2352,6 +2352,8 @@
     <Content Include="Views\QLLophoc\themhvvaolop.cshtml" />
     <Content Include="Views\QLLophoc\Xemhvtronglop.cshtml" />
     <Content Include="Views\QLLichhoc\Lichhoc.cshtml" />
+    <Content Include="Views\QLLophoc\addScore.cshtml" />
+    <Content Include="Views\QLLophoc\viewScore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

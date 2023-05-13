@@ -38,7 +38,6 @@ namespace QLtrungtam.Controllers
         public ActionResult Themchuongtrinh(FormCollection collection, ChuongTrinhHoc chuongtrinh)
         {
 
-
             var idchuongtrinh = collection["IDchuongtrinh"];
             var tenchuongtrinh = collection["Tenchuongtrinh"];
             var sobuoihoc = collection["Sobuoihoc"];

@@ -22,44 +22,45 @@
 </section>
 <table class="table">
     <tr>
-        <td>Hình Ảnh:</td>
+        <td><b>Hình Ảnh:</b></td>
         <td><img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" /></td>
     </tr>
     <tr>
-        <td>ID học viên:</td>
+        <td><b>ID học viên:</b></td>
         <td>@Html.DisplayFor(model => model.IDHocvien)</td>
     </tr>
     <tr>
-        <td>Tên học viên:</td>
+        <td><b>Tên học viên:</b></td>
         <td>@Html.DisplayFor(model => model.TenHocVien)</td>
     </tr>
     <tr>
-        <td>Ngày sinh:</td>
+        <td><b>Ngày sinh:</b></td>
         <td>@Html.DisplayFor(model => model.NgaySinh)</td>
     </tr>
     <tr>
-        <td>Địa chỉ:</td>
+        <td><b>Địa chỉ:</b></td>
         <td>@Html.DisplayFor(model => model.DiaChi)</td>
     </tr>
     <tr>
-        <td>Số điện thoại:</td>
+        <td><b>Số điện thoại:</b></td>
         <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
     </tr>
     <tr>
-        <td>Email:</td>
+        <td><b>Email:</b></td>
         <td>@Html.DisplayFor(model => model.Email)</td>
     </tr>
     <tr>
-        <td>Cấp độ:</td>
+        <td><b>Cấp độ:</b></td>
         <td>@Html.DisplayFor(model => model.CapDo)</td>
     </tr>
     <tr>
-        <td>Trạng thái:</td>
+        <td><b>Trạng thái học:</b></td>
         <td>@Html.DisplayFor(model => model.TrangThaiHV.TenTrangThai)</td>
     </tr>
 
 </table>
-<p>
+<div>
+    @Html.ActionLink("Back", "Hocvien", new { id = Model.IDHocvien }) |
     @Html.ActionLink("Sửa thông tin học viên", "Suahocvien", new { id = Model.IDHocvien }) |
     @Html.ActionLink("Xóa học viên", "Xoahocvien", new { IDhv = Model.IDHocvien })
-</p>
+</div>
