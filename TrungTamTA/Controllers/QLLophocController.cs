@@ -33,16 +33,13 @@ namespace TrungTamTA.Controllers
 
         #endregion
         #region Thêm xóa sửa
-
-
-
         //hiện form thêm lớp học
         public ActionResult Themlophoc()
         {
             return View();
         }
         //xử lý yêu cầu để hiện qua danh sách giảng viên
-        public ActionResult Themgvvaolop(int? idaction, int idlh)
+        public ActionResult Themgvvaolop(int? idaction, int? idlh)
         {
             return RedirectToAction("Giangvien", "QLGiangvien", new { idaction, idlh });
         }
@@ -82,13 +79,20 @@ namespace TrungTamTA.Controllers
             var idlophoc = collection["IDLophoc"];
             var tenlophoc = collection["Tenlophoc"];
 
-            if (checkid(int.Parse(idlophoc)))
+            if (string.IsNullOrEmpty(idlophoc))
             {
-                ViewData["Loi1"] = "Đã có";
+                ViewData["Loi1"] = "Vui lòng nhập ID lớp học";
+            }
+            else if (string.IsNullOrEmpty(tenlophoc))
+            {
+                ViewData["Loi2"] = "Vui lòng nhập tên lớp học";
+            }
+            else if (checkid(int.Parse(idlophoc)))
+            {
+                ViewData["Loi1"] = "ID lớp học đã tồn tại";
             }
             else
             {
-
                 lophoc.IDLophoc = int.Parse(idlophoc);
                 lophoc.TenLopHoc = tenlophoc;
                 lophoc.IDGiangVien = Idremen;
@@ -99,20 +103,29 @@ namespace TrungTamTA.Controllers
             }
             return this.Themlophoc();
         }
+        //xóa lớp học 
         public ActionResult Xoalophoc(int IDlh)
         {
-            // Lấy danh sách các học viên từ cơ sở dữ liệu
             var lophoc = data.LopHocs.FirstOrDefault(c => c.IDLophoc == IDlh);
             if (lophoc == null)
             {
                 return HttpNotFound();
             }
 
+            // Xóa các bản ghi liên quan trong bảng ChiTietLopHoc
+            var chiTietLopHocs = data.ChiTietLopHocs.Where(c => c.IDLophoc == lophoc.IDLophoc);
+            data.ChiTietLopHocs.DeleteAllOnSubmit(chiTietLopHocs);
+            data.SubmitChanges();
+
+            // Xóa bản ghi trong bảng LopHoc
             data.LopHocs.DeleteOnSubmit(lophoc);
             data.SubmitChanges();
+
             TempData["SuccessMessage"] = "Đã xóa!";
             return RedirectToAction("Lophoc", "QLLophoc");
         }
+
+
         //SỬA LỚP HỌC 
 
 
@@ -224,21 +237,6 @@ namespace TrungTamTA.Controllers
 
             var namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh)?.TenLopHoc;
             ViewBag.namelh = namelh;
-
-            //List<HocVien> hocvienList = data.HocViens
-            //    //Dòng này thực hiện phép nối (Join) giữa hai bảng "HocVien" và "ChiTietLopHoc".
-            //    .Join(data.ChiTietLopHocs,
-            //          //Tham số thứ nhất hocvien => hocvien.IDHocvien chỉ định cột trong bảng "HocVien" để so khớp.
-            //          hocvien => hocvien.IDHocvien,
-            //          //Tham số thứ hai chitiet => chitiet.IDHocVien chỉ định cột trong bảng "ChiTietLopHoc" để so khớp.
-            //          chitiet => chitiet.IDHocVien,
-            //          //(hocvien, chitiet) => new { HocVien = hocvien, ChiTiet = chitiet }
-            //          //tạo một đối tượng mới từ kết quả nối,
-            //          //trong đó lưu trữ thông tin của học viên và chi tiết lớp học tương ứng.
-            //          (hocvien, chitiet) => new { HocVien = hocvien, ChiTiet = chitiet })
-            //    .Where(x => x.ChiTiet.IDLophoc == IDlh)
-            //    .Select(x => x.HocVien)
-            //    .ToList();
             List<HocVien> hocvienList = new List<HocVien>();
             List<ChiTietLopHoc> listIdHocVien = data.ChiTietLopHocs.Where(item => item.IDLophoc == IDlh).ToList();
             foreach (ChiTietLopHoc item in listIdHocVien) {
@@ -279,8 +277,9 @@ namespace TrungTamTA.Controllers
 
         //nút thêm điểm cho học viên
         [HttpGet]
-        public ActionResult addScore(int IDlh, int IDhv)
+        public ActionResult addScore(int IDlh, int IDhv, int IDaction)
         {
+            ViewBag.IDcation = IDaction;
             ViewBag.IDlh = IDlh;
             ViewBag.IDhv = IDhv;
             string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc.ToString();
@@ -291,7 +290,7 @@ namespace TrungTamTA.Controllers
         }
 
         [HttpPost]
-        public ActionResult addScore(FormCollection collection, int IDlh, int IDhv)
+        public ActionResult addScore(FormCollection collection, int IDlh, int IDhv, int IDaction)
         {
             var hocVien = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv);
             var lopHoc = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh);
@@ -339,7 +338,7 @@ namespace TrungTamTA.Controllers
             }
 
             // Nếu không tìm thấy hocVien hoặc lopHoc
-            return this.addScore(IDlh, IDhv);
+            return this.addScore(IDlh, IDhv, IDaction);
         }
 
 
@@ -352,9 +351,10 @@ namespace TrungTamTA.Controllers
             string namehv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien.ToString();
             ViewBag.namehv = namehv;
             var score = from sc in data.ChiTietLopHocs select sc;
-            return View(score);
+            return View(score); 
         }
+
        
-            #endregion
-        }
+        #endregion
+    }
 }

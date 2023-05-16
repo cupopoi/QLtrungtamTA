@@ -20,43 +20,46 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<table class="table">
-    <tr>
-        <td>Hình Ảnh:</td>
-        <td><img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" /></td>
-    </tr>
-    <tr>
-        <td>Bằng Cấp:</td>
-        <td><img src="@Model.BangCap" alt="Hình ảnh" width="100" height="100" /></td>
-    </tr>
-    <tr>
-        <td>ID giảng viên:</td>
-        <td>@Html.DisplayFor(model => model.IDGiangvien)</td>
-    </tr>
-    <tr>
-        <td>Tên giảng viên:</td>
-        <td>@Html.DisplayFor(model => model.TenGiangVien)</td>
-    </tr>
-    <tr>
-        <td>Địa chỉ:</td>
-        <td>@Html.DisplayFor(model => model.DiaChi)</td>
-    </tr>
-    <tr>
-        <td>Số điện thoại:</td>
-        <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>@Html.DisplayFor(model => model.Email)</td>
-    </tr>
-    <tr>
-        <td>Lương:</td>
-        <td>@Html.DisplayFor(model => model.Luong) VND</td>
-    </tr>
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <td>Hình Ảnh:</td>
+                <td><img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" /></td>
+            </tr>
+            <tr>
+                <td>Bằng Cấp:</td>
+                <td><img src="@Model.BangCap" alt="Hình ảnh" width="100" height="100" /></td>
+            </tr>
+            <tr>
+                <td>ID giảng viên:</td>
+                <td>@Html.DisplayFor(model => model.IDGiangvien)</td>
+            </tr>
+            <tr>
+                <td>Tên giảng viên:</td>
+                <td>@Html.DisplayFor(model => model.TenGiangVien)</td>
+            </tr>
+            <tr>
+                <td>Địa chỉ:</td>
+                <td>@Html.DisplayFor(model => model.DiaChi)</td>
+            </tr>
+            <tr>
+                <td>Số điện thoại:</td>
+                <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td>Lương:</td>
+                <td>@Html.DisplayFor(model => model.Luong) VND</td>
+            </tr>
 
-</table>
-<p>
-    @Html.ActionLink("Edit", "Suagiangvien", new { IDgv = Model.IDGiangvien }) |
-    @Html.ActionLink("Delete", "Xoagiangvien", new { IDgv = Model.IDGiangvien })|
-    @Html.ActionLink("Back", "Giangvien")
-</p>
+        </table>
+        <p>
+            @Html.ActionLink("Edit", "Suagiangvien", new { IDgv = Model.IDGiangvien }) |
+            @Html.ActionLink("Back", "Giangvien","QLGiangvien")
+        </p>
+    </div>
+</div>

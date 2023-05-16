@@ -56,12 +56,13 @@ CREATE TABLE [CacNgayTrongTuan] (
 	IDNgay INT PRIMARY KEY,
 	TenNgay NVARCHAR(50),
 );
-
+ 
 CREATE TABLE [LichHoc] (
-	IDLichhoc INT PRIMARY KEY,
-	TGBatDau NVARCHAR(50),
-    TGKetThuc NVARCHAR(50),
+	IDLichhoc INT PRIMARY KEY IDENTITY,
+	TGBatDau TIME,
+    TGKetThuc TIME,
 	IDNgay INT,
+	Ngay DATETIME,
 	FOREIGN KEY (IDNgay) REFERENCES [CacNgayTrongTuan](IDNgay),
 );
 
@@ -89,7 +90,7 @@ CREATE TABLE [HocVien] (
    FOREIGN KEY (IDTrangThai) REFERENCES [TrangThaiHV](IDTrangThai),
    FOREIGN KEY ([IDTaiKhoan]) REFERENCES [TaiKhoan]([IDTaiKhoan])
 );
-drop table ChiTietLopHoc
+
 CREATE TABLE ChiTietLopHoc (
 	IDCTLophoc INT  PRIMARY KEY IDENTITY,
     IDLophoc INT NULL,
@@ -165,16 +166,16 @@ VALUES (112, N'Kiên',N'Châu thành','0976391970',N'kt78139@gmail.com',null,nul
 ---------------------------------------------
 ------------THÊM HỌC VIÊN----------------
 INSERT INTO [HocVien]
-VALUES (1112, N'Kiên Trần',16/10/2002,N'Châu thành Tây Ninh','0976391970',N'kt78139@gmail.com',null,1,'2.5 toeic',null);
+VALUES (1112, N'Kiên Trần',2006/10/16,N'Châu thành Tây Ninh','0976391970',N'kt78139@gmail.com',null,1,'2.5 toeic',null);
 INSERT INTO [HocVien]
-VALUES (11112, N'Kiên Trần1',16/10/2002,N'Châu thành Tây Ninh1','0976391970',N'kt781390@gmail.com',null,1,'2.5 toeic',null);
+VALUES (11112, N'Kiên Trần1',2002/10/16,N'Châu thành Tây Ninh1','0976391970',N'kt781390@gmail.com',null,1,'2.5 toeic',null);
 ------------THÊM CHƯƠNG TRÌNH HỌC----------------
 INSERT INTO [ChuongTrinhHoc]
 VALUES (1, N'Toeic 2.5',N'2 Tuần',N'3 Tháng',10000,N'Dành cho các bạn TOEIC 2.5');
 -------------------------------------------------
 ------------THÊM LỊCH HỌC----------------
 INSERT INTO [LichHoc]
-VALUES (1, N'07:00',N'09:00',1);
+VALUES ( N'07:00',N'09:00',1,16/10/2002);
 --------------------------------------
 ------------THÊM LỚP HỌC----------------
 INSERT INTO [LopHoc]
@@ -186,7 +187,9 @@ VALUES (111,1112,0,6.5,6.5,5.0,7.5);
 ----------------------------------
 ------------THÊM CHI TIẾT LỊCH HỌC----------------
 INSERT INTO [ChiTietLichHoc]
-VALUES (111,1);
+VALUES (111,11);
+INSERT INTO [ChiTietLichHoc]
+VALUES (111,13);
 ----------------------------------
 -----------------------CHỌN BẢNG-------------------------
 select * from [TrangThaiHV]
@@ -196,6 +199,6 @@ select * from [CacNgayTrongTuan]
 	select * from [GiangVien]
 	select * from [ChuongTrinhHoc]
 	select * from [LopHoc]
+	select * from [ChiTietLopHoc]
 	select * from [LichHoc]
-	select * from[ChiTietLopHoc]
 	select * from [ChiTietLichHoc]

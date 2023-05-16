@@ -40,73 +40,76 @@
 }
 
 
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th>
+                    Mã học viên:
+                </th>
+                <th>
+                    Tên học viên:
+                </th>
+                <th>
+                    Ngày sinh:
+                </th>
+                <th>
+                    Địa chỉ:
+                </th>
+                <th>
+                    Số điện thoại:
+                </th>
+                <th>
+                    Email:
+                </th>
+                <th>
+                    Cấp độ:
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            Mã học viên:
-        </th>
-        <th>
-           Tên học viên:
-        </th>
-        <th>
-           Ngày sinh:
-        </th>
-        <th>
-           Địa chỉ:
-        </th>
-        <th>
-            Số điện thoại:
-        </th>
-        <th>
-           Email:
-        </th>
-        <th>
-           Cấp độ:
-        </th>
-        <th>
-          Trạng thái
-        </th>
-        <th></th>
-    </tr>
-      
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(model => item.IDHocvien)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenHocVien)
-            </td>
-            <td>
-                @{
-                    string formatdate = item.NgaySinh.Value.ToString("dd/MM/yyyy");
-                }
-                @Html.DisplayFor(modelItem => formatdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => item.IDHocvien)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenHocVien)
+                    </td>
+                    <td>
+                        @{
+                            string formatdate = item.NgaySinh.Value.ToString("dd/MM/yyyy");
+                        }
+                        @Html.DisplayFor(modelItem => formatdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.CapDo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThaiHV.TenTrangThai)
-            </td>
-            <td>
-                @Html.ActionLink("AddToClass", "addtoclass", new {  IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
-            </td>
-        </tr>
-    }
-</table>
-<div style="text-align:center">
-    @Html.ActionLink("Back", "Lophoc")
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CapDo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThaiHV.TenTrangThai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("AddToClass", "addtoclass", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
+                    </td>
+                </tr>
+            }
+        </table>
+        <div style="text-align:center">
+            @Html.ActionLink("Back", "Lophoc")
+        </div>
+    </div>
 </div>

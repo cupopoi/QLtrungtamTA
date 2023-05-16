@@ -8,8 +8,9 @@
   </Table>
   <Table Name="dbo.ChiTietLichHoc" Member="ChiTietLichHocs">
     <Type Name="ChiTietLichHoc">
-      <Column Name="IDLophoc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="IDLichhoc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDCTLichhoc" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDLophoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDLichhoc" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="LichHoc_ChiTietLichHoc" Member="LichHoc" ThisKey="IDLichhoc" OtherKey="IDLichhoc" Type="LichHoc" IsForeignKey="true" />
       <Association Name="LopHoc_ChiTietLichHoc" Member="LopHoc" ThisKey="IDLophoc" OtherKey="IDLophoc" Type="LopHoc" IsForeignKey="true" />
     </Type>
@@ -90,10 +91,11 @@
   </Table>
   <Table Name="dbo.LichHoc" Member="LichHocs">
     <Type Name="LichHoc">
-      <Column Name="IDLichhoc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TGBatDau" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="TGKetThuc" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IDLichhoc" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TGBatDau" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="TGKetThuc" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
       <Column Name="IDNgay" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ngay" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="LichHoc_ChiTietLichHoc" Member="ChiTietLichHocs" ThisKey="IDLichhoc" OtherKey="IDLichhoc" Type="ChiTietLichHoc" />
       <Association Name="CacNgayTrongTuan_LichHoc" Member="CacNgayTrongTuan" ThisKey="IDNgay" OtherKey="IDNgay" Type="CacNgayTrongTuan" IsForeignKey="true" />
     </Type>

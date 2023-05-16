@@ -22,13 +22,14 @@ namespace QLtrungtam.Controllers
             var chuongtrinh = from ct in data.ChuongTrinhHocs select ct;
             return View(chuongtrinh);
         }
+
+
         #endregion
         #region Thêm xóa sửa
         private bool checkid(int id)
         {
             return data.ChuongTrinhHocs.Count(x => x.IDChuongTrinh == id) > 0;
         }
-
         [HttpGet]
         public ActionResult Themchuongtrinh()
         {
@@ -44,11 +45,43 @@ namespace QLtrungtam.Controllers
             var thoiluong = collection["Thoiluong"];
             var giatien = collection["Giatien"];
             var mota = collection["Mota"];
-            if (checkid(int.Parse(idchuongtrinh)))
+
+            if (string.IsNullOrEmpty(idchuongtrinh))
             {
-                ViewData["Loi1"] = "Đã có";
+                ViewData["Loi1"] = "Vui lòng nhập mã chương trình";
             }
-            else
+            else if (idchuongtrinh.Length > 10)
+            {
+                ViewData["Loi1"] = "Mã chương trình không hợp lệ";
+            }
+            else if (checkid(int.Parse(idchuongtrinh)))
+            {
+                ViewData["Loi1"] = "Mã chương trình đã có";
+            }
+            else if (string.IsNullOrEmpty(tenchuongtrinh))
+            {
+                ViewData["Loi2"] = "Vui lòng nhập tên chương trình";
+            }
+            else if (string.IsNullOrEmpty(sobuoihoc))
+            {
+                ViewData["Loi3"] = "Vui lòng nhập số buổi học";
+            }
+            else if (string.IsNullOrEmpty(thoiluong))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập thời lượng";
+            }
+            else if (string.IsNullOrEmpty(giatien))
+            {
+                ViewData["Loi5"] = "Vui lòng nhập giá tiền";
+            }
+            else if(string.IsNullOrEmpty(mota))
+            {
+                ViewData["Loi6"] = "Vui lòng nhập mô tả";
+            }
+            else if
+                 (!string.IsNullOrEmpty(idchuongtrinh) && idchuongtrinh.Length <= 10 && !string.IsNullOrEmpty(tenchuongtrinh) &&
+                !string.IsNullOrEmpty(sobuoihoc) && !string.IsNullOrEmpty(thoiluong) && !string.IsNullOrEmpty(giatien) &&
+                !string.IsNullOrEmpty(mota))
             {
                 chuongtrinh.IDChuongTrinh = int.Parse(idchuongtrinh);
                 chuongtrinh.TenChuongTrinh = tenchuongtrinh;
@@ -62,20 +95,33 @@ namespace QLtrungtam.Controllers
             }
             return this.Themchuongtrinh();
         }
+        //Xóa chương trình
         public ActionResult Xoachuongtrinh(int IDct)
         {
-            // Lấy danh sách các học viên từ cơ sở dữ liệu
-            var chuongtrinh = data.ChuongTrinhHocs.FirstOrDefault(c => c.IDChuongTrinh == IDct);
-            if (chuongtrinh == null)
+            var chuongTrinh = data.ChuongTrinhHocs.FirstOrDefault(c => c.IDChuongTrinh == IDct);
+            if (chuongTrinh == null)
             {
                 return HttpNotFound();
             }
 
-            data.ChuongTrinhHocs.DeleteOnSubmit(chuongtrinh);
+            var lopHoc = data.LopHocs.FirstOrDefault(l => l.IDChuongTrinh == chuongTrinh.IDChuongTrinh);
+            if (lopHoc != null)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa chương trình học" +
+                    " vì chương trình này đã có trong lớp học, hãy tạo mới";
+                return RedirectToAction("Chuongtrinhhoc", "QLChuongtrinhhoc");
+            }
+
+            var chiTietLopHocs = data.ChiTietLopHocs.Where(c => c.IDLophoc == chuongTrinh.IDChuongTrinh);
+            data.ChiTietLopHocs.DeleteAllOnSubmit(chiTietLopHocs);
+
+            data.ChuongTrinhHocs.DeleteOnSubmit(chuongTrinh);
             data.SubmitChanges();
+
             TempData["SuccessMessage"] = "Đã xóa!";
             return RedirectToAction("Chuongtrinhhoc", "QLChuongtrinhhoc");
         }
+
         public ActionResult Xemchitiet(int IDct)
         {
 

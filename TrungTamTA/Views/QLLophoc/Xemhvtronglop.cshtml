@@ -76,7 +76,7 @@
             </td>
             <td>
                 @Html.ActionLink("Delete", "DeleteStudent", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })|
-                @Html.ActionLink("Add Score", "addScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })|
+                @Html.ActionLink("Add Score", "addScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien, IDaction = 1 })|
                 @Html.ActionLink("View Score", "viewScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
             </td>
         </tr>

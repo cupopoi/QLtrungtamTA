@@ -19,151 +19,142 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="content">
+    <div class="container-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+            <div class="form-horizontal">
 
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDGiangvien)
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.IDGiangvien)
 
-        <div class="form-group">
-           <b>Mã giảng viên:</b>
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.IDGiangvien)
-            </div>
-        </div>
-        <div class="form-group">
-           <b>Hình ảnh:</b>
-            <div class="col-md-10">
-                <img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" />
+                <div class="form-group">
+                    <b>Mã giảng viên:</b>
+                    <div class="col-md-10">
+                        @Html.DisplayFor(model => model.IDGiangvien)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b>Hình ảnh:</b>
+                    <img id="pictureUpload" src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" />
+                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                    <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
+                    @Html.HiddenFor(model => model.Hinh)
 
-                @*<input type="file" name="fileUpload" id="fileUpload" accept="image/*"
-                           style="display:none;" />
-                    <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />*@
-            </div>
-        </div>
-        <div class="form-group">
-           <b>Hình bằng cấp:</b>
-            <div class="col-md-10">
-                <img src="@Model.BangCap" alt="Hình ảnh" width="100" height="100" />
+                </div>
+                <div class="form-group">
+                    <b>Hình bằng cấp:</b>
+                    <img id="pictureUpload1" src="@Model.BangCap" alt="Hình ảnh" width="100" height="100" />
+                    <input type="file" name="fileUpload1" id="fileUpload1" accept="image/*" style="display:none;" />
+                    <input type="button" id="btnUpload1" value="Chọn" class="btn btn-success" />
+                    @Html.HiddenFor(model => model.BangCap)
 
-                @*<input type="file" name="fileUpload1" id="fileUpload1" accept="image/*"
-                           style="display:none;" />
-                    <input type="button" id="btnUpload1" value="Chọn" class="btn btn-success" />*@
+                </div>
+                <div class="form-group">
+                    <b>Tên giảng viên:</b>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TenGiangVien, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenGiangVien, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b>Địa chỉ:</b>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b>Số điện thoại:</b>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b>Email:</b>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b>Lương:</b>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Luong, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Luong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-           <b>Tên giảng viên:</b>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenGiangVien, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenGiangVien, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-           <b>Địa chỉ:</b>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <b>Số điện thoại:</b>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <b>Email:</b>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <b>Lương:</b>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Luong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Luong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Giangvien","QLGiangvien")
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Giangvien")
 </div>
-
-@section upload
+        @section upload
 {
-    <script>
-            $(function () {
-                $('#btnUpload').click(function () {
-                    $('#fileUpload').trigger('click');
-                });
-            });
-            $('#fileUpload').change(function () {
-                if (window.FormData !== undefined) {
-                    var fileUpload = $('#fileUpload').get(0);
-                    var files = fileUpload.files;
-                    var formData = new FormData();
-                    formData.append('file', files[0]);
+            <script>
+                $(function () {
+                    $('#btnUpload').click(function () {
+                        $('#fileUpload').trigger('click');
+                    });
 
-                    $.ajax(
-                        {
+                    $('#fileUpload').change(function () {
+                        var file = this.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        $.ajax({
                             type: 'POST',
                             url: '/QLGiangvien/ProcessUpload',
                             contentType: false,
                             processData: false,
                             data: formData,
                             success: function (urlImage) {
-
                                 $('#pictureUpload').attr('src', urlImage);
                                 $('#Hinh').val(urlImage);
                             },
                             error: function (err) {
-                                alert('Error ', err.statusText);
+                                alert('Error: ' + err.statusText);
                             }
                         });
-                }
-            });
-        $(function () {
-            $('#btnUpload1').click(function () {
-                $('#fileUpload1').trigger('click');
-            });
-        });
-        $('#fileUpload1').change(function () {
-            if (window.FormData !== undefined) {
-                var fileUpload = $('#fileUpload1').get(0);
-                var files = fileUpload.files;
-                var formData = new FormData();
-                formData.append('file', files[0]);
-
-                $.ajax(
-                    {
-                        type: 'POST',
-                        url: '/QLGiangvien/ProcessUpload',
-                        contentType: false,
-                        processData: false,
-                        data: formData,
-                        success: function (urlImage) {
-
-                            $('#pictureUpload').attr('src', urlImage);
-                            $('#BangCap').val(urlImage);
-                        },
-                        error: function (err) {
-                            alert('Error ', err.statusText);
-                        }
                     });
-            }
-        });
-    </script>
-}
+
+                    $('#btnUpload1').click(function () {
+                        $('#fileUpload1').trigger('click');
+                    });
+
+                    $('#fileUpload1').change(function () {
+                        var file = this.files[0];
+                        var formData = new FormData();
+                        formData.append('file', file);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/QLGiangvien/ProcessUpload',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (urlImage) {
+                                $('#pictureUpload1').attr('src', urlImage);
+                                $('#BangCap').val(urlImage);
+                            },
+                            error: function (err) {
+                                alert('Error: ' + err.statusText);
+                            }
+                        });
+                    });
+                });
+
+            </script>
+        }

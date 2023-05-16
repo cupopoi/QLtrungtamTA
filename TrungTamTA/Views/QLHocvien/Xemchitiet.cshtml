@@ -20,47 +20,50 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<table class="table">
-    <tr>
-        <td><b>Hình Ảnh:</b></td>
-        <td><img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" /></td>
-    </tr>
-    <tr>
-        <td><b>ID học viên:</b></td>
-        <td>@Html.DisplayFor(model => model.IDHocvien)</td>
-    </tr>
-    <tr>
-        <td><b>Tên học viên:</b></td>
-        <td>@Html.DisplayFor(model => model.TenHocVien)</td>
-    </tr>
-    <tr>
-        <td><b>Ngày sinh:</b></td>
-        <td>@Html.DisplayFor(model => model.NgaySinh)</td>
-    </tr>
-    <tr>
-        <td><b>Địa chỉ:</b></td>
-        <td>@Html.DisplayFor(model => model.DiaChi)</td>
-    </tr>
-    <tr>
-        <td><b>Số điện thoại:</b></td>
-        <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
-    </tr>
-    <tr>
-        <td><b>Email:</b></td>
-        <td>@Html.DisplayFor(model => model.Email)</td>
-    </tr>
-    <tr>
-        <td><b>Cấp độ:</b></td>
-        <td>@Html.DisplayFor(model => model.CapDo)</td>
-    </tr>
-    <tr>
-        <td><b>Trạng thái học:</b></td>
-        <td>@Html.DisplayFor(model => model.TrangThaiHV.TenTrangThai)</td>
-    </tr>
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <td><b>Hình Ảnh:</b></td>
+                <td><img src="@Model.Hinh" alt="Hình ảnh" width="100" height="100" /></td>
+            </tr>
+            <tr>
+                <td><b>ID học viên:</b></td>
+                <td>@Html.DisplayFor(model => model.IDHocvien)</td>
+            </tr>
+            <tr>
+                <td><b>Tên học viên:</b></td>
+                <td>@Html.DisplayFor(model => model.TenHocVien)</td>
+            </tr>
+            <tr>
+                <td><b>Ngày sinh:</b></td>
+                <td>@Html.DisplayFor(model => model.NgaySinh)</td>
+            </tr>
+            <tr>
+                <td><b>Địa chỉ:</b></td>
+                <td>@Html.DisplayFor(model => model.DiaChi)</td>
+            </tr>
+            <tr>
+                <td><b>Số điện thoại:</b></td>
+                <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
+            </tr>
+            <tr>
+                <td><b>Email:</b></td>
+                <td>@Html.DisplayFor(model => model.Email)</td>
+            </tr>
+            <tr>
+                <td><b>Cấp độ:</b></td>
+                <td>@Html.DisplayFor(model => model.CapDo)</td>
+            </tr>
+            <tr>
+                <td><b>Trạng thái học:</b></td>
+                <td>@Html.DisplayFor(model => model.TrangThaiHV.TenTrangThai)</td>
+            </tr>
 
-</table>
-<div>
-    @Html.ActionLink("Back", "Hocvien", new { id = Model.IDHocvien }) |
-    @Html.ActionLink("Sửa thông tin học viên", "Suahocvien", new { id = Model.IDHocvien }) |
-    @Html.ActionLink("Xóa học viên", "Xoahocvien", new { IDhv = Model.IDHocvien })
+        </table>
+        <div>
+            @Html.ActionLink("Back", "Hocvien", new { id = Model.IDHocvien }) |
+            @Html.ActionLink("Sửa thông tin học viên", "Suahocvien", new { IDhv = @ViewBag.IDhv }) 
+        </div>
+    </div>
 </div>

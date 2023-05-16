@@ -2351,9 +2351,10 @@
     <Content Include="Views\QLLophoc\Sualophoccoct.cshtml" />
     <Content Include="Views\QLLophoc\themhvvaolop.cshtml" />
     <Content Include="Views\QLLophoc\Xemhvtronglop.cshtml" />
-    <Content Include="Views\QLLichhoc\Lichhoc.cshtml" />
+    <Content Include="Views\QLLichhoc\Cahoc.cshtml" />
     <Content Include="Views\QLLophoc\addScore.cshtml" />
     <Content Include="Views\QLLophoc\viewScore.cshtml" />
+    <Content Include="Views\QLLichhoc\Themcahoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

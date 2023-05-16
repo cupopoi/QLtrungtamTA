@@ -38,95 +38,95 @@
     ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
     TempData.Remove("SuccessMessage");
 }
+@if (TempData["ErrorMessage"] != null)
+{
+    ViewBag.ErrorMessage = TempData["ErrorMessage"].ToString();
+    TempData.Remove("ErrorMessage");
+}
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th>
+                    Mã chương trình
+                </th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Số buổi học
+                </th>
+                <th>
+                    Thời lượng
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Mô tả
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-           Mã chương trình 
-        </th>
-        <th>
-           Tên
-        </th>
-        <th>
-            Số buổi học
-        </th>
-        <th>
-           Thời lượng
-        </th>
-        <th>
-           Giá 
-        </th>
-        <th>
-            Mô tả 
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => item.IDChuongTrinh)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenChuongTrinh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoBuoiHoc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiLuong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaTien)
+                    </td>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(model => item.IDChuongTrinh)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenChuongTrinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoBuoiHoc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaTien)
-            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = item.IDChuongTrinh }) |
+                        @Html.ActionLink("Details", "Xemchitiet", new { IDct = item.IDChuongTrinh }) |
+                        @Html.ActionLink("Delete", "Xoachuongtrinh", new { IDct = item.IDChuongTrinh })|
+                        @{
+                            bool isValid = true;
+                            if (item.IDChuongTrinh == 0 || ViewBag.idaction == 0)
+                            {
+                                isValid = false;
+                            }
+                        }
 
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = item.IDChuongTrinh }) |
-                @Html.ActionLink("Details", "Xemchitiet", new { IDct = item.IDChuongTrinh }) |
-                @Html.ActionLink("Delete", "Xoachuongtrinh", new { IDct = item.IDChuongTrinh })|
-                @{
-                    bool isValid = true;
-                    if (item.IDChuongTrinh == 0 || ViewBag.idaction == 0)
-                    {
-                        isValid = false;
-                    }
-                }
-
-                @if (isValid && ViewBag.idaction == 1)
-                {
-                    @Html.ActionLink("AddToClass", "Themlophocdacoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv }, null)
-                }
-                else
-                {
-                    <div></div>
-                }
-                @if (isValid && ViewBag.idaction == 2)
-                {
-                    @Html.ActionLink("AddToClass", "Sualophoccoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv, IDlh = ViewBag.idlh }, null)
-                }
-                else
-                {
-                    <div></div>
-                }
-
-                @*@Html.ActionLink("AddToClass", "Themlophocdacoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = @ViewBag.idgv }, null)*@
-            </td>
-        </tr>
-    }
-</table>
+                        @if (isValid && ViewBag.idaction == 1)
+                        {
+                            @Html.ActionLink("AddToClass", "Themlophocdacoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv }, null)
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
+                        @if (isValid && ViewBag.idaction == 2)
+                        {
+                            @Html.ActionLink("AddToClass", "Sualophoccoct", "QLLophoc", new { IDct = item.IDChuongTrinh, Idremen = ViewBag.idgv, IDlh = ViewBag.idlh }, null)
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
 
 
-<script>
-    $(document).ready(function () {
-        $(".confirm-action").click(function (event) {
-            var confirmMsg = $(this).attr("data-confirm");
-            if (confirmMsg && !confirm(confirmMsg)) {
-                event.preventDefault();
+                    </td>
+                </tr>
             }
-        });
-    });
-</script>
+        </table>
+    </div>
+</div>

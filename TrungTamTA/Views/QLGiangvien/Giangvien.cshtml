@@ -25,7 +25,7 @@
     ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
     TempData.Remove("SuccessMessage");
 }
-<p>
+<p style="text-align:center">
     @Html.ActionLink("Thêm giảng viên", "Themgiangvien", "QLGiangvien")
 </p>
 @if (ViewBag.SuccessMessage != null)
@@ -37,94 +37,94 @@
     ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
     TempData.Remove("SuccessMessage");
 }
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th>
+                    Mã giảng viên
+                </th>
+                <th>
+                    Tên giảng viên
+                </th>
+                <th>
+                    Địa chỉ
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Lương
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            Mã giảng viên
-        </th>
-        <th>
-           Tên giảng viên
-        </th>
-        <th>
-            Địa chỉ
-        </th>
-        <th>
-           Số điện thoại
-        </th>
-        <th>
-           Email
-        </th>
-        <th>
-            Lương
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => item.IDGiangvien)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenGiangVien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiaChi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoDienThoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Luong)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Suagiangvien", new { IDgv = item.IDGiangvien }) |
+                        @Html.ActionLink("Details", "Xemchitiet", new { IDgv = item.IDGiangvien }) |
+                        @Html.ActionLink("Delete", "Xoagiangvien", new { IDgv = item.IDGiangvien },new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })|
+                        @{
+                            bool isValid = true;
+                            if (item.IDGiangvien == 0 || ViewBag.idaction == 0)
+                            {
+                                isValid = false;
+                            }
+                        }
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(model => item.IDGiangvien)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenGiangVien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Luong)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Suagiangvien", new { IDgv = item.IDGiangvien }) |
-                @Html.ActionLink("Details", "Xemchitiet", new { IDgv = item.IDGiangvien }) |
-                @Html.ActionLink("Delete", "Xoagiangvien", new { IDgv = item.IDGiangvien })|
-                @{
-                    bool isValid = true;
-                    if (item.IDGiangvien == 0 || ViewBag.idaction == 0)
-                    {
-                        isValid = false;
-                    }
-                }
+                        @if (isValid && ViewBag.idaction == 1)
+                        {
+                            @Html.ActionLink("AddToClass", "Themlophocdacogv", "QLLophoc", new { IDgv = item.IDGiangvien }, null)
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
+                        @if (isValid && ViewBag.idaction == 2)
+                        {
+                            @Html.ActionLink("AddToClass", "Sualophoccogv", "QLLophoc", new { IDgv = item.IDGiangvien, IDlh = ViewBag.idlh }, null)
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
 
-                @if (isValid && ViewBag.idaction == 1)
-                {
-                    @Html.ActionLink("AddToClass", "Themlophocdacogv", "QLLophoc", new { IDgv = item.IDGiangvien }, null)
-                }
-                else
-                {
-                    <div></div>
-                }
-                @if (isValid && ViewBag.idaction == 2)
-                {
-                    @Html.ActionLink("AddToClass", "Sualophoccogv", "QLLophoc", new { IDgv = item.IDGiangvien, IDlh = ViewBag.idlh }, null)
-                }
-                else
-                {
-                    <div></div>
-                }
+                    </td>
+                </tr>
 
-            </td>
-        </tr>
-        
-           
-      
-    }
-
-
-</table>
+            }
 
 
-@{
-    ViewBag.Title = "Giangvien";
-    Layout = "~/Views/Shared/_LayoutAD.cshtml";
-}
+        </table>
+    </div>
+ </div>
+
+        @{
+            ViewBag.Title = "Giangvien";
+            Layout = "~/Views/Shared/_LayoutAD.cshtml";
+        }
 
 

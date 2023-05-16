@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-
+using System.Text.RegularExpressions;
 
 namespace QLtrungtam.Controllers
 {
@@ -28,10 +28,24 @@ namespace QLtrungtam.Controllers
 
         #endregion
         #region Thêm xóa sửa
+        private bool IsValidEmail(string email)
+        {
+            // Biểu thức chính quy kiểm tra định dạng email
+            string pattern = @"^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            // Kiểm tra xem email có trùng khớp với biểu thức chính quy hay không
+            return Regex.IsMatch(email, pattern);
+        }
+
         private bool checkid(int id)
         {
             return data.HocViens.Count(x => x.IDHocvien == id) > 0;
         }
+        private bool checkemail(string email)
+        {
+            return data.GiangViens.Any(x => x.Email == email);
+        }
+
         public string ProcessUpload(HttpPostedFileBase file)
         {
             if (file == null)
@@ -52,17 +66,53 @@ namespace QLtrungtam.Controllers
         public ActionResult Themhocvien(FormCollection collection, HocVien hocvien, int IDtrangthai)
         {
             var idhocvien = collection["IDHocvien"];
-            var tenhocvien = collection["Tenhocvien"];
-            string ngaysinh = collection["Ngaysinh"];
+            var tenhocvien = collection["Tenhocvien"];            
             var diachi = collection["DiaChi"];
             var sodt = collection["Phone"];
             var email = collection["Email"];
-            if (checkid(int.Parse(idhocvien)))
+
+            if (string.IsNullOrEmpty(idhocvien))
             {
-                ViewData["Loi1"] = "Đã có";
+                ViewData["Loi1"] = "Vui lòng nhập mã học viên";
+            }
+            else if (string.IsNullOrEmpty(tenhocvien))
+            {
+                ViewData["Loi2"] = "Vui lòng nhập tên học viên";
+            }
+            else if (checkid(int.Parse(idhocvien)))
+            {
+                ViewData["Loi1"] = "Mã học viên đã tồn tại";
+            }
+            else if (string.IsNullOrEmpty(Request.Form["NgaySinh"]))
+            {
+                ViewData["Loi3"] = "Vui lòng nhập ngày sinh";
+            }
+            else if (!DateTime.TryParseExact(Request.Form["NgaySinh"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
+            {
+                ViewData["Loi3"] = "Ngày sinh không hợp lệ";
+            }
+            else if (string.IsNullOrEmpty(diachi))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập địa chỉ";
+            }
+            else if (string.IsNullOrEmpty(sodt))
+            {
+                ViewData["Loi5"] = "Vui lòng nhập số điện thoại";
+            }
+            else if (string.IsNullOrEmpty(email))
+            {
+                ViewData["Loi6"] = "Vui lòng nhập email";
+            }
+            else if (checkemail(email))
+            {
+                ViewData["Loi6"] = "Email đã có";
+            }
+            else if (!IsValidEmail(email))
+            {
+                ViewData["Loi6"] = "Email không hợp lệ";
             }
             else
-            {
+            { 
                 hocvien.IDHocvien = int.Parse(idhocvien);
                 hocvien.TenHocVien = tenhocvien;
                 // Chuyển đổi chuỗi thành kiểu DateTime với định dạng "dd/MM/yyyy"
@@ -78,23 +128,30 @@ namespace QLtrungtam.Controllers
             }
             return this.Themhocvien();
         }
+
         public ActionResult Xoahocvien(int IDhv)
         {
-            // Lấy danh sách các học viên từ cơ sở dữ liệu
             var hocvien = data.HocViens.FirstOrDefault(c => c.IDHocvien == IDhv);
             if (hocvien == null)
             {
                 return HttpNotFound();
             }
 
+            var chiTietLopHocs = data.ChiTietLopHocs.Where(c => c.IDHocVien == hocvien.IDHocvien);
+            data.ChiTietLopHocs.DeleteAllOnSubmit(chiTietLopHocs);
+            data.SubmitChanges(); // Lưu thay đổi sau khi xóa các bản ghi liên quan
+
             data.HocViens.DeleteOnSubmit(hocvien);
-            data.SubmitChanges();
+            data.SubmitChanges(); // Lưu thay đổi sau khi xóa học viên
+
             TempData["SuccessMessage"] = "Đã xóa!";
             return RedirectToAction("Hocvien", "QLHocvien");
         }
+
+
         public ActionResult Xemchitiet(int IDhv)
         {
-
+            ViewBag.IDhv = IDhv;
             var show1hocvien = data.HocViens.FirstOrDefault(s => s.IDHocvien == IDhv);
             if (show1hocvien == null)
             {

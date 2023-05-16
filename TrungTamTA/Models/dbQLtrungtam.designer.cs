@@ -82,18 +82,19 @@ namespace TrungTamTA.Models
 		{
 			OnCreated();
 		}
-        public dbQLtrungtamDataContext() :
-             base(global::System.Configuration.ConfigurationManager.ConnectionStrings["TrungTamTAConnectionString"].ConnectionString, mappingSource)
-        {
-            OnCreated();
-        }
-        public dbQLtrungtamDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		
+		public dbQLtrungtamDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
-		
-		public System.Data.Linq.Table<CacNgayTrongTuan> CacNgayTrongTuans
+        public dbQLtrungtamDataContext() :
+               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["TrungTamTAConnectionString"].ConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public System.Data.Linq.Table<CacNgayTrongTuan> CacNgayTrongTuans
 		{
 			get
 			{
@@ -302,9 +303,11 @@ namespace TrungTamTA.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IDLophoc;
+		private int _IDCTLichhoc;
 		
-		private int _IDLichhoc;
+		private System.Nullable<int> _IDLophoc;
+		
+		private System.Nullable<int> _IDLichhoc;
 		
 		private EntityRef<LichHoc> _LichHoc;
 		
@@ -314,9 +317,11 @@ namespace TrungTamTA.Models
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIDLophocChanging(int value);
+    partial void OnIDCTLichhocChanging(int value);
+    partial void OnIDCTLichhocChanged();
+    partial void OnIDLophocChanging(System.Nullable<int> value);
     partial void OnIDLophocChanged();
-    partial void OnIDLichhocChanging(int value);
+    partial void OnIDLichhocChanging(System.Nullable<int> value);
     partial void OnIDLichhocChanged();
     #endregion
 		
@@ -327,8 +332,28 @@ namespace TrungTamTA.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLophoc", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IDLophoc
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCTLichhoc", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IDCTLichhoc
+		{
+			get
+			{
+				return this._IDCTLichhoc;
+			}
+			set
+			{
+				if ((this._IDCTLichhoc != value))
+				{
+					this.OnIDCTLichhocChanging(value);
+					this.SendPropertyChanging();
+					this._IDCTLichhoc = value;
+					this.SendPropertyChanged("IDCTLichhoc");
+					this.OnIDCTLichhocChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLophoc", DbType="Int")]
+		public System.Nullable<int> IDLophoc
 		{
 			get
 			{
@@ -351,8 +376,8 @@ namespace TrungTamTA.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLichhoc", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int IDLichhoc
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLichhoc", DbType="Int")]
+		public System.Nullable<int> IDLichhoc
 		{
 			get
 			{
@@ -402,7 +427,7 @@ namespace TrungTamTA.Models
 					}
 					else
 					{
-						this._IDLichhoc = default(int);
+						this._IDLichhoc = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("LichHoc");
 				}
@@ -436,7 +461,7 @@ namespace TrungTamTA.Models
 					}
 					else
 					{
-						this._IDLophoc = default(int);
+						this._IDLophoc = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("LopHoc");
 				}
@@ -2093,11 +2118,13 @@ namespace TrungTamTA.Models
 		
 		private int _IDLichhoc;
 		
-		private string _TGBatDau;
+		private System.Nullable<System.TimeSpan> _TGBatDau;
 		
-		private string _TGKetThuc;
+		private System.Nullable<System.TimeSpan> _TGKetThuc;
 		
 		private System.Nullable<int> _IDNgay;
+		
+		private System.Nullable<System.DateTime> _Ngay;
 		
 		private EntitySet<ChiTietLichHoc> _ChiTietLichHocs;
 		
@@ -2109,12 +2136,14 @@ namespace TrungTamTA.Models
     partial void OnCreated();
     partial void OnIDLichhocChanging(int value);
     partial void OnIDLichhocChanged();
-    partial void OnTGBatDauChanging(string value);
+    partial void OnTGBatDauChanging(System.Nullable<System.TimeSpan> value);
     partial void OnTGBatDauChanged();
-    partial void OnTGKetThucChanging(string value);
+    partial void OnTGKetThucChanging(System.Nullable<System.TimeSpan> value);
     partial void OnTGKetThucChanged();
     partial void OnIDNgayChanging(System.Nullable<int> value);
     partial void OnIDNgayChanged();
+    partial void OnNgayChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayChanged();
     #endregion
 		
 		public LichHoc()
@@ -2124,7 +2153,7 @@ namespace TrungTamTA.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLichhoc", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLichhoc", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int IDLichhoc
 		{
 			get
@@ -2144,8 +2173,8 @@ namespace TrungTamTA.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TGBatDau", DbType="NVarChar(50)")]
-		public string TGBatDau
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TGBatDau", DbType="Time")]
+		public System.Nullable<System.TimeSpan> TGBatDau
 		{
 			get
 			{
@@ -2164,8 +2193,8 @@ namespace TrungTamTA.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TGKetThuc", DbType="NVarChar(50)")]
-		public string TGKetThuc
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TGKetThuc", DbType="Time")]
+		public System.Nullable<System.TimeSpan> TGKetThuc
 		{
 			get
 			{
@@ -2204,6 +2233,26 @@ namespace TrungTamTA.Models
 					this._IDNgay = value;
 					this.SendPropertyChanged("IDNgay");
 					this.OnIDNgayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ngay", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Ngay
+		{
+			get
+			{
+				return this._Ngay;
+			}
+			set
+			{
+				if ((this._Ngay != value))
+				{
+					this.OnNgayChanging(value);
+					this.SendPropertyChanging();
+					this._Ngay = value;
+					this.SendPropertyChanged("Ngay");
+					this.OnNgayChanged();
 				}
 			}
 		}

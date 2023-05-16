@@ -40,47 +40,49 @@
     ViewBag.AlertMessage = TempData["AlertMessage"].ToString();
     TempData.Remove("AlertMessage");
 }
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDLophoc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenLopHoc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDGiangVien)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDChuongTrinh)
+                </th>
+                <th></th>
+            </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IDLophoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TenLopHoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDGiangVien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IDChuongTrinh)
-        </th>
-        <th></th>
-    </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayFor(model => item.IDLophoc)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenLopHoc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiangVien.TenGiangVien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChuongTrinhHoc.TenChuongTrinh)
+                    </td>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th>
-                @Html.DisplayFor(model => item.IDLophoc)
-            </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenLopHoc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiangVien.TenGiangVien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChuongTrinhHoc.TenChuongTrinh)
-            </td>
-
-            <td>
-                @Html.ActionLink("Edit", "Sualophoc", new { IDlh = item.IDLophoc }) |
-                @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc })|
-                @Html.ActionLink("AddStudent", "themhvvaolop", new { IDlh = item.IDLophoc })|
-                @Html.ActionLink("View", "Xemhvtronglop", new { IDlh = item.IDLophoc })
-            </td>
-        </tr>
-    }
-</table>
-
+                    <td>
+                        @Html.ActionLink("Edit", "Sualophoc", new { IDlh = item.IDLophoc }) |
+                        @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })|
+                        @Html.ActionLink("AddStudent", "themhvvaolop", new { IDlh = item.IDLophoc })|
+                        @Html.ActionLink("View", "Xemhvtronglop", new { IDlh = item.IDLophoc })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

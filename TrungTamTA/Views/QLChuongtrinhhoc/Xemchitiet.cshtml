@@ -2,13 +2,6 @@
 @model TrungTamTA.Models.ChuongTrinhHoc
 
 @{
-    ViewBag.Title = "Chi tiết chương trình học";
-    Layout = "~/Views/Shared/_layoutAD.cshtml";
-}
-
-<h2>Xemchitiet</h2>
-
-@{
     ViewBag.Title = "Chi tiết học viên";
     Layout = "~/Views/Shared/_layoutAD.cshtml";
 }
@@ -28,35 +21,38 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<table class="table">
-    <tr>
-        <td>Mã chương trình học :</td>
-        <td>@Html.DisplayFor(model => model.IDChuongTrinh)</td>
-    </tr>
-    <tr>
-        <td>Tên chương trình học:</td>
-        <td>@Html.DisplayFor(model => model.TenChuongTrinh)</td>
-    </tr>
-    <tr>
-        <td>Số buổi trong tuần:</td>
-        <td>@Html.DisplayFor(model => model.SoBuoiHoc)</td>
-    </tr>
-    <tr>
-        <td>Thời lượng của chương trình:</td>
-        <td>@Html.DisplayFor(model => model.ThoiLuong)</td>
-    </tr>
-    <tr>
-        <td>Giá chương trình học:</td>
-        <td>@Html.DisplayFor(model => model.GiaTien) VND</td>
-    </tr>
-    <tr>
-        <td>Mô tả chi tiết:</td>
-        <td>@Html.DisplayFor(model => model.MoTa)</td>
-    </tr>
+<div class="content">
+    <div class="container-fluid">
+        <table class="table">
+            <tr>
+                <td>Mã chương trình học :</td>
+                <td>@Html.DisplayFor(model => model.IDChuongTrinh)</td>
+            </tr>
+            <tr>
+                <td>Tên chương trình học:</td>
+                <td>@Html.DisplayFor(model => model.TenChuongTrinh)</td>
+            </tr>
+            <tr>
+                <td>Số buổi trong tuần:</td>
+                <td>@Html.DisplayFor(model => model.SoBuoiHoc)</td>
+            </tr>
+            <tr>
+                <td>Thời lượng của chương trình:</td>
+                <td>@Html.DisplayFor(model => model.ThoiLuong)</td>
+            </tr>
+            <tr>
+                <td>Giá chương trình học:</td>
+                <td>@Html.DisplayFor(model => model.GiaTien) VND</td>
+            </tr>
+            <tr>
+                <td>Mô tả chi tiết:</td>
+                <td>@Html.DisplayFor(model => model.MoTa)</td>
+            </tr>
 
-</table>
-<p>
-    @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = Model.IDChuongTrinh }) |
-    @Html.ActionLink("Delete", "Xoachuongtrinh", new { IDct = Model.IDChuongTrinh })|
-    @Html.ActionLink("Back", "Chuongtrinhhoc")
-</p>
+        </table>
+        <p>
+            @Html.ActionLink("Edit", "Suachuongtrinh", new { IDct = Model.IDChuongTrinh }) |
+            @Html.ActionLink("Back", "Chuongtrinhhoc")
+        </p>
+    </div>
+</div>
