@@ -109,13 +109,18 @@ namespace TrungTamTA.Controllers
             var lophoc = data.LopHocs.FirstOrDefault(c => c.IDLophoc == IDlh);
             if (lophoc == null)
             {
-                return HttpNotFound();
+                TempData["ErrorMessage"] = "Lớp học không tồn tại.";
+                return RedirectToAction("Lophoc", "QLLophoc");
             }
 
-            // Xóa các bản ghi liên quan trong bảng ChiTietLopHoc
-            var chiTietLopHocs = data.ChiTietLopHocs.Where(c => c.IDLophoc == lophoc.IDLophoc);
-            data.ChiTietLopHocs.DeleteAllOnSubmit(chiTietLopHocs);
-            data.SubmitChanges();
+            // Kiểm tra xem lớp học có dữ liệu liên quan trong bảng ChiTietLopHoc hay không
+            var chiTietLopHocs = data.ChiTietLopHocs.Where(c => c.IDLophoc == lophoc.IDLophoc).ToList();
+            var chiTietLichHocs = data.ChiTietLichHocs.Where(c => c.IDLophoc == lophoc.IDLophoc).ToList();
+            if (chiTietLopHocs.Count > 0 || chiTietLichHocs.Count > 0)
+            {
+                TempData["ErrorMessage"] = "Không thể xóa lớp học vì có dữ liệu, hãy thêm mới";
+                return RedirectToAction("Lophoc", "QLLophoc");
+            }
 
             // Xóa bản ghi trong bảng LopHoc
             data.LopHocs.DeleteOnSubmit(lophoc);
@@ -216,7 +221,7 @@ namespace TrungTamTA.Controllers
         public ActionResult themhvvaolop(int IDlh)
         {
             ViewBag.Idlh = IDlh;
-            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc.ToString();
+            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc;
             ViewBag.namelh = namelh;
             bool checkSL = data.ChiTietLopHocs.Count(x => x.IDLophoc == IDlh) >= 30;
             if (checkSL)
@@ -282,9 +287,9 @@ namespace TrungTamTA.Controllers
             ViewBag.IDcation = IDaction;
             ViewBag.IDlh = IDlh;
             ViewBag.IDhv = IDhv;
-            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc.ToString();
+            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc;
             ViewBag.namelh = namelh;
-            string namehv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien.ToString();
+            string namehv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien;
             ViewBag.namehv = namehv;
             return View();
         }
@@ -309,29 +314,16 @@ namespace TrungTamTA.Controllers
                 // Kiểm tra xem đã tồn tại bản ghi trong ChiTietLopHoc có cùng IDHocVien và IDLophoc hay chưa
                 var chiTietLopHoc = data.ChiTietLopHocs.FirstOrDefault(x => x.IDHocVien == hocVien.IDHocvien && x.IDLophoc == lopHoc.IDLophoc);
 
-                if (chiTietLopHoc != null)
+                if (chiTietLopHoc == null)
                 {
-                    // Cập nhật các cột phụ trong bản ghi hiện có
-                    chiTietLopHoc.DiemNghe = diemnghe;
-                    chiTietLopHoc.DiemNoi = diemnoi;
-                    chiTietLopHoc.DiemDoc = diemdoc;
-                    chiTietLopHoc.DiemViet = diemviet;
+                    TempData["AlertMessage"] = "Không tìn thấy!";
+                    return RedirectToAction("Xemhvtronglop", new { IDlh });
                 }
-                else
-                {
-                    // Tạo một bản ghi mới và gán giá trị
-                    ChiTietLopHoc chitietlophoc = new ChiTietLopHoc();
-                    chitietlophoc.IDHocVien = hocVien.IDHocvien;
-                    chitietlophoc.IDLophoc = lopHoc.IDLophoc;
-                    chitietlophoc.DiemNghe = diemnghe;
-                    chitietlophoc.DiemNoi = diemnoi;
-                    chitietlophoc.DiemDoc = diemdoc;
-                    chitietlophoc.DiemViet = diemviet;
-
-                    // Thêm bản ghi mới vào ChiTietLopHoc
-                    data.ChiTietLopHocs.InsertOnSubmit(chitietlophoc);
-                }
-
+                // Cập nhật các cột phụ trong bản ghi hiện có
+                chiTietLopHoc.DiemNghe = diemnghe;
+                chiTietLopHoc.DiemNoi = diemnoi;
+                chiTietLopHoc.DiemDoc = diemdoc;
+                chiTietLopHoc.DiemViet = diemviet;
                 // Lưu các thay đổi vào cơ sở dữ liệu
                 data.SubmitChanges();
                 return RedirectToAction("Xemhvtronglop", new { IDlh });
@@ -346,15 +338,85 @@ namespace TrungTamTA.Controllers
         {
             ViewBag.IDlh = IDlh;
             ViewBag.IDhv = IDhv;
-            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc.ToString();
+            string namelh = data.LopHocs.FirstOrDefault(x => x.IDLophoc == IDlh).TenLopHoc;
             ViewBag.namelh = namelh;
-            string namehv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien.ToString();
+            string namehv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien;
             ViewBag.namehv = namehv;
             var score = from sc in data.ChiTietLopHocs select sc;
             return View(score); 
         }
 
-       
+        //thêm lớp học vào ca học 
+        [HttpGet]
+        public ActionResult ThemlophocvaoCaHoc(int IDlh, int? IDCaHoc)
+        {
+
+            string Ngay = data.LichHocs.FirstOrDefault(x => x.IDLichhoc == IDCaHoc)?.Ngay.Value.ToString("dd/MM/yyyy");
+            ViewBag.Ngay = Ngay;
+
+            var lichHoc = data.LichHocs.FirstOrDefault(x => x.IDLichhoc == IDCaHoc);
+            string TGBatdau = lichHoc?.TGBatDau?.ToString("hh\\:mm");
+            ViewBag.TGBatdau = TGBatdau;
+
+            string TGKetthuc = lichHoc?.TGKetThuc?.ToString("hh\\:mm");
+            ViewBag.TGKetthuc = TGKetthuc;
+
+
+            ViewBag.Idlh = IDlh;
+            LopHoc lophoc = data.LopHocs.SingleOrDefault(c => c.IDLophoc == IDlh);
+            if (lophoc == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                // Lấy danh sách các ca học
+                var caHocList = data.LichHocs.ToList();
+                ViewBag.CaHocList = caHocList;
+
+                return View(lophoc);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ThemlophocvaoCaHoc(int IDlh, int IDCaHoc)
+        {
+            ViewBag.Idlh = IDlh;
+            var lopHoc = data.LopHocs.FirstOrDefault(c => c.IDLophoc == IDlh);
+            var caHoc = data.LichHocs.FirstOrDefault(c => c.IDLichhoc == IDCaHoc);
+
+            if (lopHoc == null || caHoc == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Kiểm tra xem lớp học đã được gán vào ca học hay chưa
+            if (data.ChiTietLichHocs.Any(ct => ct.IDLophoc == IDlh && ct.IDLichhoc == IDCaHoc))
+            {
+                TempData["ErrorMessage"] = "Lớp học đã được gán vào ca học.";
+                return RedirectToAction("ThemlophocvaoCaHoc", new { IDlh, IDCaHoc });
+            }
+            else
+            {
+                // Tạo một bản ghi ChiTietLichHoc mới và gán thông tin lớp học và ca học
+                var chiTietLichHoc = new ChiTietLichHoc();
+                chiTietLichHoc.IDLophoc = IDlh;
+                chiTietLichHoc.IDLichhoc = IDCaHoc;
+
+                // Thêm bản ghi vào cơ sở dữ liệu
+                data.ChiTietLichHocs.InsertOnSubmit(chiTietLichHoc);
+                data.SubmitChanges();
+
+                TempData["SuccessMessage"] = "Thêm lớp học vào ca học thành công.";
+            }
+
+            return RedirectToAction("Lophoc");
+        }
+        public ActionResult ShiftinClass()
+        {
+            var lophoc = from lh in data.ChiTietLichHocs select lh;
+            return View(lophoc);
+        }
         #endregion
     }
 }

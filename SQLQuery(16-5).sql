@@ -52,20 +52,6 @@ CREATE TABLE [GiangVien] (
    FOREIGN KEY ([IDTaiKhoan]) REFERENCES [TaiKhoan]([IDTaiKhoan]),
 );
 
-CREATE TABLE [CacNgayTrongTuan] (
-	IDNgay INT PRIMARY KEY,
-	TenNgay NVARCHAR(50),
-);
- 
-CREATE TABLE [LichHoc] (
-	IDLichhoc INT PRIMARY KEY IDENTITY,
-	TGBatDau TIME,
-    TGKetThuc TIME,
-	IDNgay INT,
-	Ngay DATETIME,
-	FOREIGN KEY (IDNgay) REFERENCES [CacNgayTrongTuan](IDNgay),
-);
-
 CREATE TABLE [LopHoc] (
   IDLophoc INT PRIMARY KEY,
   TenLopHoc NVARCHAR(50),
@@ -92,18 +78,31 @@ CREATE TABLE [HocVien] (
 );
 
 CREATE TABLE ChiTietLopHoc (
-	IDCTLophoc INT  PRIMARY KEY IDENTITY,
     IDLophoc INT NULL,
     IDHocVien INT NULL,
-    DaThanhToan BIT,
-    DiemNghe FLOAT,
-    DiemNoi FLOAT,
-    DiemViet FLOAT,
-    DiemDoc FLOAT,
-   DiemTB AS CEILING((DiemNghe + DiemNoi + DiemViet + DiemDoc) / 4.0 * 2) / 2.0,
+	DiemNghe FLOAT,
+	DiemNoi FLOAT,
+	DiemViet FLOAT,
+	DiemDoc FLOAT,
+	DiemTB AS CEILING((DiemNghe + DiemNoi + DiemViet + DiemDoc) / 4.0 * 2) / 2.0,
+	PRIMARY KEY (IDLophoc, IDHocVien),
     FOREIGN KEY (IDHocVien) REFERENCES HocVien(IDHocVien),
     FOREIGN KEY (IDLophoc) REFERENCES LopHoc(IDLophoc)
 );
+CREATE TABLE [CacNgayTrongTuan] (
+	IDNgay INT PRIMARY KEY,
+	TenNgay NVARCHAR(50),
+);
+ 
+CREATE TABLE [LichHoc] (
+	IDLichhoc INT PRIMARY KEY IDENTITY,
+	TGBatDau TIME,
+    TGKetThuc TIME,
+	IDNgay INT,
+	Ngay DATETIME,
+	FOREIGN KEY (IDNgay) REFERENCES [CacNgayTrongTuan](IDNgay),
+);
+
 
 
 CREATE TABLE [ChiTietLichHoc] (
@@ -126,6 +125,7 @@ CREATE TABLE[HoaDonTT](
 	[IdThanhToan] INT,
 	[IDHocVien] INT,
 	[IdLopHoc] INT,
+	[DaThanhToan] BIT,
 	 FOREIGN KEY (IDHocVien) REFERENCES HocVien(IDHocVien),
     FOREIGN KEY (IDLophoc) REFERENCES LopHoc(IDLophoc)
 );
@@ -198,7 +198,7 @@ select * from [CacNgayTrongTuan]
 	select * from [HocVien]
 	select * from [GiangVien]
 	select * from [ChuongTrinhHoc]
+	select * from [LichHoc]
 	select * from [LopHoc]
 	select * from [ChiTietLopHoc]
-	select * from [LichHoc]
 	select * from [ChiTietLichHoc]

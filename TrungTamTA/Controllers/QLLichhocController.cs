@@ -13,8 +13,10 @@ namespace TrungTamTA.Controllers
         dbQLtrungtamDataContext data = new dbQLtrungtamDataContext();
         // GET: QLLichhoc
         #region Show lớp học
-        public ActionResult Cahoc()
+        public ActionResult Cahoc(int? IDaction, int? IDlh)
         {
+            ViewBag.IDaction = IDaction;
+            ViewBag.IDlh = IDlh;
             var lichHocs = data.LichHocs.OrderBy(lh => lh.Ngay).ThenBy(lh => lh.TGBatDau);
             return View(lichHocs);
         }
@@ -75,7 +77,7 @@ namespace TrungTamTA.Controllers
             return RedirectToAction("Cahoc", "QLLichhoc");
         }
 
-
+       
         #endregion
     }
 }

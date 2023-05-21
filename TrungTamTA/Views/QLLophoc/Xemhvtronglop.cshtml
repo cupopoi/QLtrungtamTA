@@ -11,6 +11,7 @@
             <div class="col-sm-6">
                 <h1>Danh sách học viên lớp: @ViewBag.namelh</h1>
                 <h4>@ViewBag.count /30</h4>
+
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -36,7 +37,16 @@
     ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
     TempData.Remove("SuccessMessage");
 }
+ @if (TempData["AlertMessage"] != null)
+{
+    ViewBag.AlertMessage = TempData["AlertMessage"].ToString();
+    TempData.Remove("AlertMessage");
+}
 
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
 
 
 <table class="table">
@@ -46,14 +56,15 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.IDHocvien)
+            Mã học viên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TenHocVien)
+            Tên học viên
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CapDo)
+            Cấp độ
         </th>
+        <th></th>
     </tr>
     @{
         int i = 0;
@@ -75,9 +86,9 @@
                 @Html.DisplayFor(modelItem => item.CapDo)
             </td>
             <td>
-                @Html.ActionLink("Delete", "DeleteStudent", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })|
                 @Html.ActionLink("Add Score", "addScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien, IDaction = 1 })|
-                @Html.ActionLink("View Score", "viewScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
+                @Html.ActionLink("View Score", "viewScore", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })|
+                @Html.ActionLink("Delete Student", "DeleteStudent", new { IDlh = @ViewBag.Idlh, IDhv = item.IDHocvien })
             </td>
         </tr>
     }

@@ -2355,6 +2355,8 @@
     <Content Include="Views\QLLophoc\addScore.cshtml" />
     <Content Include="Views\QLLophoc\viewScore.cshtml" />
     <Content Include="Views\QLLichhoc\Themcahoc.cshtml" />
+    <Content Include="Views\QLLophoc\ThemlophocvaoCaHoc.cshtml" />
+    <Content Include="Views\QLLophoc\ShiftinClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

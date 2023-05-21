@@ -40,6 +40,7 @@
     TempData.Remove("SuccessMessage");
 }
 
+
 <div class="content">
     <div class="container-fluid">
         <table class="table">
@@ -61,7 +62,25 @@
                         <td>@item.TGBatDau.Value.ToString("hh\\:mm")</td>
                         <td>@item.TGKetThuc.Value.ToString("hh\\:mm")</td>
                         <td>
-                            @Html.ActionLink("Delete", "Xoacahoc", new { IDch = item.IDLichhoc }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })
+                            @{
+                                bool isValid = true;
+                                if (item.IDLichhoc == 0 || ViewBag.idaction == 0)
+                                {
+                                    isValid = false;
+                                }
+                            }
+
+                            @if (isValid && ViewBag.IDaction == 1)
+                            {
+                                @Html.ActionLink("AddToClass", "ThemlophocvaoCaHoc", "QLLophoc", new { IDlh = ViewBag.IDlh, IDCaHoc = item.IDLichhoc }, null)
+                                <span>|</span> @Html.ActionLink("Delete", "Xoacahoc", new { IDch = item.IDLichhoc }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("AddClass", "Lophoc", "QLLophoc", null, Request.Url.Scheme)
+                                <span>|</span> @Html.ActionLink("Delete", "Xoacahoc", new { IDch = item.IDLichhoc }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })
+                                <div></div>
+                            }
 
                         </td>
                     </tr>
