@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Danh sách lịch học</h1>
+                <h1>Lịch học của @ViewBag.nameHv</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -60,9 +60,12 @@
                     Ca học
                 </th>
                 <th>
+                    Thứ
+                </th>
+                <th>
                     Ngày
                 </th>
-                <th></th>
+
             </tr>
 
             @foreach (var item in Model)
@@ -90,6 +93,9 @@
 
                     </td>
                     <td>
+                        @Html.DisplayFor(model => item.LichHoc.CacNgayTrongTuan.TenNgay)
+                    </td>
+                    <td>
                         @{
                             var ngayFormatted = item.LichHoc.Ngay.Value.ToString("dd/MM/yyyy");
                         }
@@ -97,11 +103,7 @@
                         @Html.DisplayFor(m => ngayFormatted)
 
                     </td>
-                    <td>
-                        @Html.ActionLink("Add Student", "themhvvaolop", new { IDlh = item.IDLophoc })|
-                        @Html.ActionLink("View Class", "Xemhvtronglop", new { IDlh = item.IDLophoc }) |
-                        @Html.ActionLink("Delete", "Xoalophoc", new { IDlh = item.IDLophoc }, new { onclick = "return confirm('Bạn có chắc chắn muốn xóa?');" })
-                    </td>
+                    
                 </tr>
             }
         </table>

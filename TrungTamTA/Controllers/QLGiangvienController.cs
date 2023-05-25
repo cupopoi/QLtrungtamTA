@@ -24,9 +24,20 @@ namespace QLtrungtam.Controllers
         }
         #endregion
         #region Thêm xóa sửa
-        private bool checkid(int id)
+        public bool CheckIsNumber(string input)
         {
-            return data.GiangViens.Count(x => x.IDGiangvien == id) > 0;
+            return double.TryParse(input, out _);
+        }
+        private bool checkid(string id)
+        {
+            if (CheckIsNumber(id) && id.Length <= 8)
+            {
+                return data.GiangViens.Count(x => x.IDGiangvien == int.Parse(id)) > 0;
+            }
+            else
+            {
+                return false;
+            }
         }
         private bool checkemail(string email)
         {
@@ -40,7 +51,7 @@ namespace QLtrungtam.Controllers
             // Kiểm tra xem email có trùng khớp với biểu thức chính quy hay không
             return Regex.IsMatch(email, pattern);
         }
-
+ 
         //được sử dụng để upload hình ảnh
         public string ProcessUpload(HttpPostedFileBase file)
         {
@@ -72,13 +83,22 @@ namespace QLtrungtam.Controllers
             var sodt = collection["Phone"];
             var email = collection["Email"];
             var luong = collection["Luong"];
-            if (checkid(int.Parse(idgiangvien)))
-            {
-                ViewData["Loi1"] = "Mã giảng viên đã tồn tại";
-            }
-            else if (string.IsNullOrEmpty(idgiangvien))
+
+            if (string.IsNullOrEmpty(idgiangvien))
             {
                 ViewData["Loi1"] = "Vui lòng nhập mã giảng viên";
+            }
+            else if (checkid(idgiangvien) == false)
+            {
+                ViewData["Loi1"] = "Vui lòng nhập mã giảng viên là số";
+            }
+            else if (!checkid(idgiangvien))
+            {
+                ViewData["Loi1"] = "Mã của giảng viên không quá 8 số";
+            }
+            else if (checkid(idgiangvien))
+            {
+                ViewData["Loi1"] = "Mã giảng viên đã tồn tại";
             }
             else if (string.IsNullOrEmpty(tengiangvien))
             {

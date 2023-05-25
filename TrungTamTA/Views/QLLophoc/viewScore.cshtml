@@ -21,45 +21,47 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<div class="content">
-    <div class="container-fluid">
-        <table class="table">
-            <tr>
-                <td><strong>Tên học viên:</strong></td>
-                <td>@ViewBag.namehv</td>
-            </tr>
-            <tr>
-                <td><strong>Lớp:</strong></td>
-                <td>@ViewBag.namelh</td>
-            </tr>
-            <tr>
-                <td><strong>Điểm nghe:</strong></td>
-                <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemNghe)</td>
-            </tr>
-            <tr>
-                <td><strong>Điểm nói:</strong></td>
-                <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemNoi)</td>
-            </tr>
-            <tr>
-                <td><strong>Điểm đọc:</strong></td>
-                <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemDoc)</td>
-            </tr>
-            <tr>
-                <td><strong>Điểm viết:</strong></td>
-                <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemViet)</td>
-            </tr>
-            <tr>
-                <td><strong>Điểm trung bình:</strong></td>
-                <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemTB)</td>
-            </tr>
-        </table>
+<div class="search">
+    <div class="content">
+        <div class="container-fluid">
+            <table class="table">
+                <tr>
+                    <td><strong>Tên học viên:</strong></td>
+                    <td>@ViewBag.namehv</td>
+                </tr>
+                <tr>
+                    <td><strong>Lớp:</strong></td>
+                    <td>@ViewBag.namelh</td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm nghe:</strong></td>
+                    <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemNghe)</td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm nói:</strong></td>
+                    <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemNoi)</td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm đọc:</strong></td>
+                    <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemDoc)</td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm viết:</strong></td>
+                    <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemViet)</td>
+                </tr>
+                <tr>
+                    <td><strong>Điểm trung bình:</strong></td>
+                    <td>@Html.DisplayFor(model => model.FirstOrDefault().DiemTB)</td>
+                </tr>
+            </table>
 
-        <p>
-            @Html.ActionLink("Sửa điểm", "addScore", new { IDlh = @ViewBag.IDlh, IDhv = @ViewBag.IDhv, IDaction = 2 })
-        </p>
+            <p>
+                @Html.ActionLink("Sửa điểm", "addScore", new { IDlh = @ViewBag.IDlh, IDhv = @ViewBag.IDhv, IDaction = 2 })
+            </p>
 
-        <div>
-            @Html.ActionLink("Back to List", "Xemhvtronglop", new { IDlh = @ViewBag.IDlh })
+            <div>
+                @Html.ActionLink("Back to List", "Xemhvtronglop", new { IDlh = @ViewBag.IDlh })
+            </div>
         </div>
     </div>
 </div>

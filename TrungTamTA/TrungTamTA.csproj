@@ -169,6 +169,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -2280,6 +2281,7 @@
       <LastGenOutput>dbQLtrungtam.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Models\dbQLtrungtam.dbml.layout">
       <DependentUpon>dbQLtrungtam.dbml</DependentUpon>
     </None>
@@ -2357,9 +2359,13 @@
     <Content Include="Views\QLLichhoc\Themcahoc.cshtml" />
     <Content Include="Views\QLLophoc\ThemlophocvaoCaHoc.cshtml" />
     <Content Include="Views\QLLophoc\ShiftinClass.cshtml" />
+    <Content Include="Views\QLHocvien\StudentTimetable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

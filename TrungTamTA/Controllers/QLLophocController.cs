@@ -244,7 +244,8 @@ namespace TrungTamTA.Controllers
             ViewBag.namelh = namelh;
             List<HocVien> hocvienList = new List<HocVien>();
             List<ChiTietLopHoc> listIdHocVien = data.ChiTietLopHocs.Where(item => item.IDLophoc == IDlh).ToList();
-            foreach (ChiTietLopHoc item in listIdHocVien) {
+            foreach (ChiTietLopHoc item in listIdHocVien) 
+            {
                 HocVien hocVien = data.HocViens.SingleOrDefault(x => x.IDHocvien == item.IDHocVien);
                 hocvienList.Add(hocVien);
             }
@@ -333,7 +334,7 @@ namespace TrungTamTA.Controllers
             return this.addScore(IDlh, IDhv, IDaction);
         }
 
-
+        //xem điểm của học viên
         public ActionResult viewScore(int IDlh, int IDhv)
         {
             ViewBag.IDlh = IDlh;
@@ -412,6 +413,8 @@ namespace TrungTamTA.Controllers
 
             return RedirectToAction("Lophoc");
         }
+
+        //xem ca học có trong lớp 
         public ActionResult ShiftinClass()
         {
             var lophoc = from lh in data.ChiTietLichHocs select lh;

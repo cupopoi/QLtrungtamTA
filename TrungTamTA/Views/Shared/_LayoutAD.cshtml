@@ -38,7 +38,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                <li class="nav-item">
+                @*<li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -57,7 +57,7 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li>*@
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
@@ -179,15 +179,16 @@
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group" style="width: 100%;">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search" style="background-color: #57606f; color: #ffffff; border-color: #8395a7; ">
                         <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
+                            <button class="btn" style="background-color: #57606f; color: #f5f6fa; border-color: #8395a7; ">
+                                <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -199,7 +200,7 @@
                             <a href="#" class="nav-link">
                                 <i class=" nav-icon fa fa-address-card" aria-hidden="true"></i>
                                 <p>
-                                   - Quản lý -
+                                    - Quản lý -
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
@@ -257,12 +258,12 @@
                             </ul>
                         </li>
                         <!--LỚP HỌC-->
-                        
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>
-                                   - Lớp Học -
+                                    - Lớp Học -
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -288,7 +289,7 @@
                             <a href="#" class="nav-link">
                                 <i class="fas fa-ellipsis-h nav-icon"></i>
                                 <p>
-                                   - Chương trình học -
+                                    - Chương trình học -
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -314,7 +315,7 @@
                             <a href="#" class="nav-link">
                                 <i class="fas fa-ellipsis-h nav-icon"></i>
                                 <p>
-                                  - Ca học -
+                                    - Ca học -
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -335,7 +336,25 @@
                                 </li>
                             </ul>
                         </li>
-                    </nav>
+                        <!--CA HỌC-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-ellipsis-h nav-icon"></i>
+                                <p>
+                                    - Lịch học -
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ShiftinClass", "QLLophoc", null, Request.Url.Scheme)" class="nav-link">
+                                        <i class="far fa-plus-square nav-icon"></i>
+                                        <p>Xem lịch học</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+</nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
@@ -377,3 +396,20 @@
     @RenderSection("upload", required: false)
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#search").keyup(function () {
+            var searchText = $("#search").val().toLowerCase();
+            $(".search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText))
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        })
+    });
+</script>

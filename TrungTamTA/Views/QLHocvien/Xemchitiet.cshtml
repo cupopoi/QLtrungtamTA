@@ -37,7 +37,10 @@
             </tr>
             <tr>
                 <td><b>Ngày sinh:</b></td>
-                <td>@Html.DisplayFor(model => model.NgaySinh)</td>
+                @{
+                    var ngaySinhFormatted = Model.NgaySinh?.ToString("dd/MM/yyyy");
+                }
+                <td>@Html.DisplayFor(model => ngaySinhFormatted)</td>
             </tr>
             <tr>
                 <td><b>Địa chỉ:</b></td>
@@ -59,7 +62,10 @@
                 <td><b>Trạng thái học:</b></td>
                 <td>@Html.DisplayFor(model => model.TrangThaiHV.TenTrangThai)</td>
             </tr>
-
+            <tr>
+                <td><b>Lịch học:</b></td>
+              
+            </tr>
         </table>
         <div>
             @Html.ActionLink("Back", "Hocvien", new { id = Model.IDHocvien }) |

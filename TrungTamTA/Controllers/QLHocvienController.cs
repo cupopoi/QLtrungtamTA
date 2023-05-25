@@ -11,6 +11,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace QLtrungtam.Controllers
 {
@@ -36,15 +37,26 @@ namespace QLtrungtam.Controllers
             // Kiểm tra xem email có trùng khớp với biểu thức chính quy hay không
             return Regex.IsMatch(email, pattern);
         }
-
-        private bool checkid(int id)
+      public bool CheckIsNumber(string input)
         {
-            return data.HocViens.Count(x => x.IDHocvien == id) > 0;
+            return double.TryParse(input, out _);
         }
+        private bool checkid(string id)
+        {
+            if (CheckIsNumber(id) && id.Length <= 8)
+            {
+                return data.HocViens.Count(x => x.IDHocvien == int.Parse(id)) > 0;
+            }
+            else {
+                return false;            
+            }
+        }
+
         private bool checkemail(string email)
         {
             return data.GiangViens.Any(x => x.Email == email);
         }
+  
 
         public string ProcessUpload(HttpPostedFileBase file)
         {
@@ -75,14 +87,23 @@ namespace QLtrungtam.Controllers
             {
                 ViewData["Loi1"] = "Vui lòng nhập mã học viên";
             }
+            else  if (checkid(idhocvien) == false)
+            {
+                ViewData["Loi1"] = "Vui lòng nhập mã học viên là số";
+            }
+            else if (!checkid(idhocvien))
+            {
+                ViewData["Loi1"] = "Mã của học viên không quá 8 số";
+            }
+            else if (checkid(idhocvien))
+            {
+                ViewData["Loi1"] = "Mã học viên đã tồn tại";
+            }
             else if (string.IsNullOrEmpty(tenhocvien))
             {
                 ViewData["Loi2"] = "Vui lòng nhập tên học viên";
             }
-            else if (checkid(int.Parse(idhocvien)))
-            {
-                ViewData["Loi1"] = "Mã học viên đã tồn tại";
-            }
+           
             else if (string.IsNullOrEmpty(Request.Form["NgaySinh"]))
             {
                 ViewData["Loi3"] = "Vui lòng nhập ngày sinh";
@@ -211,8 +232,34 @@ namespace QLtrungtam.Controllers
                 return View(editHocvien);
             }
         }
+        public ActionResult StudentTimetable(int IDhv)
+        {
+            ViewBag.IDhv = IDhv;
+            var nameHv = data.HocViens.FirstOrDefault(x => x.IDHocvien == IDhv).TenHocVien.ToString();
+            ViewBag.nameHv = nameHv;
+            //danh sách rỗng của ChiTietLichHoc được khởi tạo để lưu trữ thông tin về lịch học của sinh viên.
+            List<ChiTietLichHoc> listChiTietLichHoc = new List<ChiTietLichHoc>();
+            // Danh sách ChiTietLopHoc của sinh viên được lấy từ cơ sở dữ liệu có IDHocVien bằng với IDhocvien được truyền vào.
+            List<ChiTietLopHoc> listChiTietLopHoc = data.ChiTietLopHocs.Where(item => item.IDHocVien == IDhv).ToList();
+            //lặp qua từng đối tượng ChiTietLopHoc trong danh sách.
+            foreach (ChiTietLopHoc item in listChiTietLopHoc)
+            {
+                //LopHoc tương ứng với IDLophoc của đối tượng ChiTietLopHoc được lấy từ cơ sở dữ liệu với điều kiện là IDLophoc 
+                LopHoc lopHoc = data.LopHocs.SingleOrDefault(x => x.IDLophoc == item.IDLophoc);
+                if (lopHoc != null)
+                {
+                    //ChitietLichHoc tương ứng với LopHoc đó được lấy từ cơ sở dữ liệu IDLophoc
+                    List<ChiTietLichHoc> listChiTietLichHocForLop = data.ChiTietLichHocs.Where(x => x.IDLophoc == lopHoc.IDLophoc).ToList();
+                    foreach (ChiTietLichHoc chiTietLichHoc in listChiTietLichHocForLop)
+                    {
+                        listChiTietLichHoc.Add(chiTietLichHoc);
+                    }
+                }
+            }
 
+            return View(listChiTietLichHoc);
+        }
 
-        #endregion
-    }
+            #endregion
+        }
 }
